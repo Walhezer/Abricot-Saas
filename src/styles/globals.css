@@ -1,0 +1,36 @@
+:root {
+  /* Couleurs de la maquette */
+  --color-abricot: rgba(211, 89, 11, 1);
+  --color-abricot-hover: rgba(180, 72, 5, 1); 
+  --color-bg: rgba(249, 250, 251, 1);
+  --color-text-main: #1f2937;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+  --card-radius: 10px;
+  --card-border: 1px solid var(--color-border);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-manrope), sans-serif;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.card {
+  background-color: #ffffff;
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+}

@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--color-abricot);
+}
+
+.description {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
