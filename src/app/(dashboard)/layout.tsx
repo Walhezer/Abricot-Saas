@@ -1,5 +1,4 @@
 import Header from '@/components/layout/Header/Header';
-// Attention au chemin d'import du CSS qui descend d'un niveau maintenant :
 import styles from './dashboard/dashboard.module.css';
 
 export default function DashboardLayout({

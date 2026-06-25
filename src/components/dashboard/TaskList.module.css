@@ -1,0 +1,108 @@
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.taskCard {
+  border: 1px solid #EAEAEA;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskInfo {
+  flex: 1;
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.taskHeader h3 {
+  font-size: 16px;
+  margin: 0;
+  color: #1A1A1A;
+}
+
+.taskDescription {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 15px 0;
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #888888;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px; 
+}
+
+.metaIcon {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2px;
+  stroke: currentColor; 
+}
+
+.separator {
+  color: #DDDDDD; 
+  font-size: 12px;
+}
+
+.taskMeta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.taskActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.viewBtn {
+  background-color: #1A1A1A;
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badgeTODO {
+  background-color: #FFEAE8;
+  color: #FF6B6B;
+}
+
+.badgeIN_PROGRESS {
+  background-color: #FFF3E0;
+  color: #FFB020;
+}
+
+.badgeDONE {
+  background-color: #E8F5E9;
+  color: #4CAF50;
+}

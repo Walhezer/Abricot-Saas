@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "next dev --webpack",
-  "build": "next build",
-  "start": "next start",
+    "dev": "next dev --webpack",
+    "build": "next build",
+    "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "lucide-react": "^1.21.0",
     "next": "16.2.7",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -26,9 +27,9 @@
     "typescript": "^5"
   },
   "prettier": {
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "tabWidth": 2
-}
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "tabWidth": 2
+  }
 }
