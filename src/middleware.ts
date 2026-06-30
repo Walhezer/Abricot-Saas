@@ -34,5 +34,5 @@ export function middleware(request: NextRequest) {
 
 // Configure paths where the proxy applies (excluding static assets for performance)
 export const config = {
-  matcher: ['/dashboard/:path*', '/kanban/:path*', '/projects/:path*', '/login', '/register'],
+  matcher: ['/','/dashboard/:path*', '/kanban/:path*', '/projects/:path*', '/login', '/register'],
 };
