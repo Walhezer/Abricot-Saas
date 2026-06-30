@@ -1,34 +1,38 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // 1. On récupère le token dans les cookies
+  // Retrieve authentication token from cookies
   const token = request.cookies.get('abricot_token')?.value;
   
-  // 2. On récupère l'URL sur laquelle l'utilisateur essaie d'aller
+  // Extract the requested path
   const { pathname } = request.nextUrl;
 
-  // 3. Définition des routes
+// Handle root path redirection
+  if (pathname === '/') {
+    // Redirect to dashboard if authenticated, otherwise to login
+    const redirectUrl = token ? '/dashboard' : '/login';
+    return NextResponse.redirect(new URL(redirectUrl, request.url));
+  }
+
+  // Define route categories
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/register');
   const isDashboardPage = pathname.startsWith('/dashboard') || pathname.startsWith('/kanban') || pathname.startsWith('/projects');
 
-  // CAS 1 : L'utilisateur n'a PAS de token et essaie d'accéder au SaaS (Dashboard, Kanban...)
+  // Case 1: Redirect unauthenticated users away from protected routes
   if (!token && isDashboardPage) {
-    // On le redirige immédiatement vers la page de connexion
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // CAS 2 : L'utilisateur A un token valide mais essaie d'aller sur /login ou /register
+  // Case 2: Redirect authenticated users away from auth pages
   if (token && isAuthPage) {
-    // Inutile de se reconnecter, on l'envoie sur le dashboard
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
-  // Si tout est OK, on laisse la requête continuer normalement
+  // Proceed with the request if no conditions match
   return NextResponse.next();
 }
 
-// Le "matcher" permet de dire à Next.js sur quelles routes le middleware doit s'exécuter
-// On exclut les fichiers statiques (images, styles) pour ne pas ralentir le site
+// Configure paths where the proxy applies (excluding static assets for performance)
 export const config = {
   matcher: ['/dashboard/:path*', '/kanban/:path*', '/projects/:path*', '/login', '/register'],
 };
