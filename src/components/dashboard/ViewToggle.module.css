@@ -1,6 +1,6 @@
 .toggleContainer {
   display: flex;
-  gap: 8px; /* L'espacement exact entre les deux boutons */
+  gap: 8px; 
 }
 
 .toggleBtn {
@@ -8,12 +8,12 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  border-radius: 8px; /* Bords bien arrondis comme sur ta capture */
+  border-radius: 8px; 
   font-size: 15px;
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s ease;
-  border: none; /* On retire les bordures */
+  border: none; 
 }
 
 .toggleBtn svg {
@@ -24,12 +24,12 @@
 
 .active {
   background-color: rgba(255, 232, 217, 1); 
-  color: #D35400; 
+  color: rgba(211, 89, 11, 1); 
 }
 
 .inactive {
-  background-color: transparent; 
-  color: #D35400; 
+  background-color: rgba(255, 255, 255, 1); 
+  color: rgba(211, 89, 11, 1); 
 }
 
 .inactive:hover {

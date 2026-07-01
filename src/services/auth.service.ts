@@ -1,5 +1,4 @@
-const API_URL = 'http://localhost:8000/api';
-
+const API_URL = '/api';
 
 export async function registerWithCredentials(email: string, password: string) {
     try {
@@ -44,7 +43,6 @@ export async function loginWithCredentials(email: string, password: string) {
 
         return data;
     } catch (error) {
-
         if (error instanceof Error) {
             throw new Error(error.message);
         }

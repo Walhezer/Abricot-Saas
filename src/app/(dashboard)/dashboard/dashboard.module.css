@@ -1,15 +1,13 @@
-/* Container global */
 .dashboardContainer {
   min-height: 100vh;
   background-color: #F8F9FA;
   font-family: Arial, sans-serif;
 }
 
-/* Header principal */
 .pageWrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 90px 20px;
 }
 
 .pageHeader {
@@ -33,20 +31,30 @@
 }
 
 .createProjectBtn {
-  background-color: #1A1A1A;
+  background-color: rgba(31, 31, 31, 1);
   color: white;
+  height: 50px; 
+  padding: 0 24px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  border-radius: 10px;
+  gap: 10px;
+  transition: background-color 0.2s ease;
 }
 
-/* Grande zone blanche (Conteneur des tâches) */
+.createProjectBtn:hover {
+  background-color: rgba(15, 15, 15, 1);
+}
+
 .tasksContainer {
   background-color: #FFFFFF;
   border-radius: 12px;
-  padding: 30px;
+  padding: 40px 50px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.03);
 }
 
@@ -62,5 +70,10 @@
 }
 
 .toggleContainerPlacement {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+}
+
+.kanbanWrapper {
+  width: 100%;
+  margin-top: 24px;
 }

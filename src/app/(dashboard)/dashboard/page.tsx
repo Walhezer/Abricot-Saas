@@ -48,15 +48,7 @@ export default async function DashboardPage({
           <p>Une erreur est survenue lors du chargement des tâches.</p>
         </div>
       ) : (
-        <div className={styles.tasksContainer}>
-          {/* On n'affiche cet en-tête que pour la vue liste (selon ta maquette) */}
-          {!isKanbanView && (
-             <div className={styles.tasksHeader}>
-               <h2>Mes tâches assignées</h2>
-               <p>Par ordre de priorité</p>
-             </div>
-          )}
-
+      <div className={isKanbanView ? styles.kanbanWrapper : styles.tasksContainer}>
           {/* RENDU CONDITIONNEL : LISTE OU KANBAN */}
         {isKanbanView ? (
             <KanbanView tasks={tasks} />

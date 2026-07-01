@@ -1,10 +1,71 @@
+.tasksHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.headerTitles h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 8px 0;
+}
+
+.headerTitles p {
+  font-size: 16px;
+  color: #888;
+  margin: 0;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+}
+
+.searchContainer {
+  position: relative;
+  width: 357px;
+  height: 63px;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.searchInput {
+  width: 100%;
+  height: 100%;
+  padding: 0 16px 0 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #ff8c00;
+}
+
 .taskList {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
+.emptyMessage {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
 .taskCard {
+  background-color: #ffffff;
   border: 1px solid #EAEAEA;
   border-radius: 8px;
   padding: 20px;
@@ -15,16 +76,12 @@
 
 .taskInfo {
   flex: 1;
-}
-
-.taskHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 5px;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.taskHeader h3 {
+.taskTitle {
   font-size: 16px;
   margin: 0;
   color: #1A1A1A;
@@ -33,7 +90,7 @@
 .taskDescription {
   font-size: 13px;
   color: #666;
-  margin: 0 0 15px 0;
+  margin: 0 0 5px 0;
 }
 
 .taskMeta {
@@ -41,48 +98,48 @@
   align-items: center;
   gap: 12px;
   font-size: 13px;
-  color: #888888;
+  color: #64748b;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
-  gap: 6px; 
+  gap: 6px;
 }
 
 .metaIcon {
-  width: 16px;
-  height: 16px;
-  stroke-width: 2px;
-  stroke: currentColor; 
+  color: #888888;
 }
 
 .separator {
-  color: #DDDDDD; 
-  font-size: 12px;
-}
-
-.taskMeta span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  color: #cbd5e1;
 }
 
 .taskActions {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 20px;
+  gap: 16px;
 }
 
 .viewBtn {
-  background-color: #1A1A1A;
-  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 121px;
+  background-color: rgba(31, 31, 31, 1);
+  color: #ffffff;
+  border-radius: 10px;
   border: none;
-  padding: 8px 24px;
-  border-radius: 6px;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.viewBtn:hover {
+  background-color: rgba(15, 15, 15, 1);
 }
 
 .badge {
