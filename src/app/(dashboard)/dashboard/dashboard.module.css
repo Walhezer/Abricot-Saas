@@ -2,12 +2,21 @@
   min-height: 100vh;
   background-color: #F8F9FA;
   font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
 }
 
 .pageWrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 90px 20px;
+  width: 100%;
+  max-width: 1440px; 
+  margin: 90px auto 0; 
+  padding: 0 100px; 
+  padding-bottom: 155px;
+  box-sizing: border-box;
 }
 
 .pageHeader {

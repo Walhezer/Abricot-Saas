@@ -1,0 +1,22 @@
+.footer {
+  width: 100%;
+  background-color: #ffffff; 
+  /* border-top: 1px solid #eaeaea; Décommente si tu as une ligne grise au-dessus */
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px; 
+  margin: 0 auto; 
+  padding: 0 30px; 
+  height: 80px; 
+  box-sizing: border-box;
+}
+
+.copyright {
+  color: #1a1a1a; 
+  font-size: 0.875rem; 
+}

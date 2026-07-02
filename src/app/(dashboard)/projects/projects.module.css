@@ -1,0 +1,12 @@
+.pageWrapper {
+  width: 100%;
+  max-width: 1440px; 
+  margin: 90px auto 0; 
+  padding: 0 100px; 
+  padding-bottom: 155px; 
+  box-sizing: border-box;
+  
+  /* On force une hauteur minimale très grande pour tester */
+  min-height: 80vh; 
+  background-color: #f9f9f9; /* Ajoute un fond gris temporaire pour voir la taille du bloc */
+}
