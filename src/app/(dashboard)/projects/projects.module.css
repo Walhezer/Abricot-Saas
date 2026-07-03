@@ -5,8 +5,52 @@
   padding: 0 100px; 
   padding-bottom: 155px; 
   box-sizing: border-box;
-  
-  /* On force une hauteur minimale très grande pour tester */
-  min-height: 80vh; 
-  background-color: #f9f9f9; /* Ajoute un fond gris temporaire pour voir la taille du bloc */
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  color: #1A1A1A;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.createProjectBtn {
+  background-color: #1F1F1F;
+  color: white;
+  height: 50px; 
+  padding: 0 24px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  gap: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.createProjectBtn:hover {
+  background-color: #0F0F0F;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 18px 14px; 
+  margin-top: 32px;
 }

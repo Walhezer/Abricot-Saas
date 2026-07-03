@@ -1,0 +1,246 @@
+.pageWrapper {
+  width: 100%;
+  max-width: 1440px; 
+  margin: 90px auto 0; 
+  padding: 0 100px; 
+  padding-bottom: 155px; 
+  box-sizing: border-box;
+}
+
+.topBar {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ECECEC;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  color: #666;
+}
+
+.projectHeaderContent {
+  flex: 1;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.projectTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin: 0;
+}
+
+.modifyLink {
+  font-size: 13px;
+  color: #D3590B;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.projectDescription {
+  font-size: 14px;
+  color: #666;
+  margin: 8px 0 0 0;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.createTaskBtn {
+  background-color: #1F1F1F;
+  color: white;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.iaBtn {
+  background-color: #D3590B;
+  color: white;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contributorsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(243, 244, 246, 1); 
+  border: 1px solid #E5E7EB; 
+  padding: 20px 50px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.contributorsLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.contributorsLabel span {
+  font-weight: 400;
+  color: #888;
+  margin-left: 8px;
+}
+
+.contributorsList {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.contributorItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.avatarCircle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rolePill {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ownerAvatar, .ownerPill {
+  background-color: #FFE6DC;
+  color: #D3590B;
+}
+
+.memberAvatar, .memberPill {
+  background-color: #EAEAEA;
+  color: #666;
+}
+
+.tasksSection {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ECECEC;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.viewSelector {
+  display: flex;
+  gap: 8px; 
+}
+
+.viewBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;        
+  padding: 0 16px;     
+  gap: 10px;           
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;  
+  cursor: pointer;
+  background: transparent;
+  color: #D3590B;      
+  transition: all 0.2s ease;
+}
+
+.viewBtnActive {
+  background-color: #FFE6DC; 
+}
+
+.filterSelect {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;            
+  height: 45px;        
+  padding: 0 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #ECECEC;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  height: 45px;         
+  width: 260px;         
+  padding: 0 40px 0 16px; 
+  border: 1px solid #ECECEC;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1A1A1A;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: #D3590B;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 16px;
+  color: #888;
+  pointer-events: none;
+}
