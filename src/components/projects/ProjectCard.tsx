@@ -1,73 +1,85 @@
 import Link from 'next/link';
 import styles from './ProjectCard.module.css';
-
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  progress: number;
-  tasksCount: string;
-  teamSize: string;
-}
+import { Project } from '@/types/dashboard'; // À adapter selon le chemin de ton fichier de types
+import { getInitials } from '@/utils/string';
 
 interface ProjectCardProps {
   project: Project;
+  completedTasks: number;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  completedTasks,
+}: ProjectCardProps) {
+  // Dynamic calculations based on your data
+  const totalTasks = project._count?.tasks || 0;
+  const progress =
+    totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+  const teamSize = (project.members?.length || 0) + 1;
+
   return (
     <Link href={`/projects/${project.id}`} className={styles.projectCard}>
-      
-      <h3 className={styles.cardTitle}>{project.title}</h3>
+      {/* Using `project.name` instead of `title` to match the database */}
+      <h3 className={styles.cardTitle}>{project.name}</h3>
       <p className={styles.cardDescription}>{project.description}</p>
-      
-      {/* Spacer to push bottom content down */}
+
       <div className={styles.spacer}></div>
 
-      {/* --- Progress Section --- */}
+      {/* --- Progression Section --- */}
       <div className={styles.progressContainer}>
         <div className={styles.progressHeader}>
           <span className={styles.progressLabel}>Progression</span>
-          <span className={styles.progressValue}>{project.progress}%</span>
+          <span className={styles.progressValue}>{progress}%</span>
         </div>
-        
+
         <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill} 
-            style={{ width: `${project.progress}%` }} 
+          <div
+            className={styles.progressFill}
+            style={{ width: `${progress}%` }}
           />
         </div>
-        
-        <span className={styles.tasksCount}>{project.tasksCount}</span>
+
+        <span className={styles.tasksCount}>
+          {completedTasks}/{totalTasks} tâches terminées
+        </span>
       </div>
 
       {/* --- Team Section --- */}
       <div className={styles.teamContainer}>
-        
-        {/* Team header */}
         <div className={styles.teamHeader}>
           <span>👥</span>
-          <span>{project.teamSize}</span>
+          <span>Équipe ({teamSize})</span>
         </div>
 
-        {/* Team members row */}
         <div className={styles.teamMembersRow}>
-          
-          {/* Owner group (Avatar + Pill) */}
-          <div className={styles.ownerGroup}>
-            <div className={`${styles.avatar} ${styles.ownerAvatar}`}>AD</div>
-            <div className={`${styles.pill} ${styles.ownerPill}`}>Propriétaire</div>
-          </div>
+          {/* Owner Group (Circle + Pill) */}
+          {project.owner && (
+            <div className={styles.ownerGroup}>
+              <div className={`${styles.avatar} ${styles.ownerAvatar}`}>
+                {getInitials(project.owner.name)}
+              </div>
+              <div className={`${styles.pill} ${styles.ownerPill}`}>
+                Propriétaire
+              </div>
+            </div>
+          )}
 
-          {/* Members group (Overlapping avatars) */}
+          {/* Member Groups (Overlapping Circles) */}
           <div className={styles.memberGroup}>
-            <div className={`${styles.avatar} ${styles.memberAvatar}`} style={{ zIndex: 2 }}>BD</div>
-            <div className={`${styles.avatar} ${styles.memberAvatar}`} style={{ zIndex: 1 }}>CV</div>
+            {project.members?.map((member, index) => (
+              <div
+                key={member.id}
+                className={`${styles.avatar} ${styles.memberAvatar}`}
+                style={{ zIndex: 10 - index }}
+                title={member.user.name}
+              >
+                {getInitials(member.user.name)}
+              </div>
+            ))}
           </div>
-
         </div>
       </div>
-
     </Link>
   );
 }

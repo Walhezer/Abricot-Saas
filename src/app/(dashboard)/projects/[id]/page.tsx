@@ -2,6 +2,9 @@ import Link from 'next/link';
 import ListIcon from '@/components/ui/ListIcon';
 import CalendarIcon from '@/components/ui/CalendarIcon';
 import styles from './projectSingle.module.css';
+import { getProjectById, getTasksByProjectId } from '@/services/projects.service';
+import { getInitials } from '@/utils/string';
+import TaskListItem from '@/components/projects/TaskListItem';
 
 interface ProjectPageProps {
   params: {
@@ -9,17 +12,33 @@ interface ProjectPageProps {
   };
 }
 
-export default function SingleProjectPage({ params }: ProjectPageProps) {
-  const projectId = params.id;
+export default async function SingleProjectPage({ params }: ProjectPageProps) {
+  const resolvedParams = await params;
+  const projectId = resolvedParams.id;
+  
+  // We retrieve the project and its tasks
+  const project = await getProjectById(projectId);
+  const tasks = await getTasksByProjectId(projectId);
 
-  // Mock data for dynamic contributors rendering
-  const projectContributors = [
-    { id: '1', role: 'owner', initials: 'AD', name: 'Propriétaire' },
-    { id: '2', role: 'member', initials: 'BD', name: 'Bertrand Dupont' },
-    { id: '3', role: 'member', initials: 'AD', name: 'Anne Dupont' },
-    { id: '4', role: 'member', initials: 'EE', name: 'Etienne Espin' },
-  ];
+  // If project is not found or API fails, show a fallback
+  if (!project) {
+    return (
+      <div className={styles.pageWrapper}>
+        <div style={{ padding: '40px', textAlign: 'center', color: '#666' }}>
+          <h2>Projet introuvable</h2>
+          <Link href="/projects" style={{ color: '#D3590B', textDecoration: 'underline' }}>
+            Retour à la liste des projets
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
+  // Calculate total contributors (members + 1 owner)
+  const totalContributors = (project.members?.length || 0) + (project.owner ? 1 : 0);
+ 
+
+  // Render the project details page
   return (
     <div className={styles.pageWrapper}>
 
@@ -31,18 +50,19 @@ export default function SingleProjectPage({ params }: ProjectPageProps) {
 
         <div className={styles.projectHeaderContent}>
           <div className={styles.titleRow}>
-            {/* For testing purposes, the ID is displayed dynamically next to the title */}
-            <h1 className={styles.projectTitle}>Nom du projet ({projectId})</h1>
+            {/* Dynamic Title */}
+            <h1 className={styles.projectTitle}>{project.name}</h1>
             <span className={styles.modifyLink}>Modifier</span>
           </div>
+          {/* Dynamic Description */}
           <p className={styles.projectDescription}>
-            Développement de la nouvelle version de l&apos;API REST avec authentification JWT
+            {project.description}
           </p>
         </div>
 
         <div className={styles.actionButtons}>
           <button className={styles.createTaskBtn}>Créer une tâche</button>
-          <button className={styles.iaBtn}>IA</button>
+          <button className={styles.iaBtn}>✨ IA</button>
         </div>
       </div>
 
@@ -50,30 +70,33 @@ export default function SingleProjectPage({ params }: ProjectPageProps) {
       <div className={styles.contributorsBar}>
 
         <div className={styles.contributorsLabel}>
-          {/* Dynamically display the total number of contributors */}
-          Contributeurs <span>{projectContributors.length} personnes</span>
+          Contributeurs <span>{totalContributors} {totalContributors > 1 ? 'personnes' : 'personne'}</span>
         </div>
 
         <div className={styles.contributorsList}>
-          {/* Map through the array to generate each contributor tag */}
-          {projectContributors.map((contributor) => {
-            const isOwner = contributor.role === 'owner';
-
-            return (
-              <div key={contributor.id} className={styles.contributorItem}>
-                <div 
-                  className={`${styles.avatarCircle} ${isOwner ? styles.ownerAvatar : styles.memberAvatar}`}
-                >
-                  {contributor.initials}
-                </div>
-                <div 
-                  className={`${styles.rolePill} ${isOwner ? styles.ownerPill : styles.memberPill}`}
-                >
-                  {contributor.name}
-                </div>
+          
+          {/* Owner Tag */}
+          {project.owner && (
+            <div className={styles.contributorItem}>
+              <div className={`${styles.avatarCircle} ${styles.ownerAvatar}`}>
+                {getInitials(project.owner.name)}
               </div>
-            );
-          })}
+              <div className={`${styles.rolePill} ${styles.ownerPill}`}>Propriétaire</div>
+            </div>
+          )}
+
+          {/* Members Tags */}
+          {project.members?.map((member) => (
+            <div key={member.id} className={styles.contributorItem}>
+              <div className={`${styles.avatarCircle} ${styles.memberAvatar}`}>
+                {getInitials(member.user.name)}
+              </div>
+              <div className={`${styles.rolePill} ${styles.memberPill}`}>
+                {member.user.name}
+              </div>
+            </div>
+          ))}
+          
         </div>
 
       </div>
@@ -119,10 +142,21 @@ export default function SingleProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
-        {/* Temporary container for the to-do list */}
+     {/* Tasks list */}
         <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px' }}>
-          <div style={{ color: '#888', textAlign: 'center', padding: '40px 0' }}>
-            La liste des tâches (composant)
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            
+            {/* We check to see if there are any tasks; if not, we display an empty message */}
+            {tasks.length > 0 ? (
+              tasks.map((task) => (
+                <TaskListItem key={task.id} task={task} currentUser={project.owner} />
+              ))
+            ) : (
+              <div style={{ textAlign: 'center', color: '#888', padding: '40px 0' }}>
+                Aucune tâche n&apos;a encore été créée pour ce projet.
+              </div>
+            )}
+
           </div>
         </div>
       </div>

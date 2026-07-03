@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
-import DashboardIcon from '@/components/ui/DashboardIcon'; // Ajuste le chemin
-import FolderIcon from '@/components/ui/FolderIcon';       // Ajuste le chemin
+import DashboardIcon from '@/components/ui/DashboardIcon'; 
+import FolderIcon from '@/components/ui/FolderIcon';       
 
 export default function Header() {
   const pathname = usePathname(); 

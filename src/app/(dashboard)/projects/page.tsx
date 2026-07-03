@@ -1,17 +1,21 @@
 import ProjectCard from '@/components/projects/ProjectCard';
 import styles from './projects.module.css';
+import { getProjects, getTasksByProjectId } from '@/services/projects.service';
 
-// Simulation of Model Data
-const MOCK_PROJECTS = Array.from({ length: 9 }, (_, index) => ({
-  id: `proj-${index + 1}`,
-  title: 'Nom du projet',
-  description: "Développement de la nouvelle version de l'API REST avec authentification JWT.",
-  progress: index === 0 ? 35 : 0,
-  tasksCount: '0/2 tâches terminées',
-  teamSize: 'Équipe (3)'
-}));
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+  const completedTasksByProjectId = Object.fromEntries(
+    await Promise.all(
+      projects.map(async (project) => {
+        const tasks = await getTasksByProjectId(project.id);
+        return [
+          project.id,
+          tasks.filter((task) => task.status === 'DONE').length,
+        ] as const;
+      })
+    )
+  );
 
-export default function ProjectsPage() {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.pageHeader}>
@@ -26,12 +30,19 @@ export default function ProjectsPage() {
       </div>
 
       <div className={styles.projectsGrid}>
-        {MOCK_PROJECTS.map((project) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            completedTasks={completedTasksByProjectId[project.id] ?? 0}
           />
         ))}
+
+        {projects.length === 0 && (
+          <p style={{ color: '#666' }}>
+            Aucun projet n&apos;a encore été créé.
+          </p>
+        )}
       </div>
     </div>
   );

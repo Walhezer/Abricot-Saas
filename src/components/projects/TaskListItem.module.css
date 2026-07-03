@@ -1,0 +1,243 @@
+.taskCard {
+  background: white;
+  border: 1px solid #EAEAEA;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.cardMain {
+  padding: 20px 24px;
+}
+
+/* Header & Title */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+/* Badges */
+.statusBadge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusTodo { background: #FEE2E2; color: #EF4444; }
+.statusInProgress { background: #FEF3C7; color: #F59E0B; }
+.statusDone { background: #D1FAE5; color: #10B981; }
+.statusDefault { background: #F3F4F6; color: #6B7280; }
+
+.moreBtn {
+  background: none;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #888;
+}
+
+/* Description & Meta */
+.description {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 20px 0;
+}
+
+.metaData {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dueDate, .assignees {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #666;
+}
+
+.metaLabel {
+  margin-right: 8px;
+}
+
+.metaValue {
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+/* Assignees Pills */
+.assigneeList {
+  display: flex;
+  gap: 8px;
+}
+
+.assigneePill {
+  display: flex;
+  align-items: center;
+  background: #F3F4F6;
+  padding: 2px 8px 2px 2px;
+  border-radius: 16px;
+}
+
+.avatar {
+  background: #E5E7EB;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+/* Toggle Accordion Button */
+.toggleBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  border-top: 1px solid #EAEAEA;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.toggleBtn:hover {
+  background: #F9FAFB;
+}
+
+/* Comments Section */
+.commentsSection {
+  padding: 0 24px 24px 24px;
+  background: #FAFAFA;
+  border-top: 1px solid #EAEAEA;
+}
+
+.commentItem {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.commentAvatar {
+  background: #FEE2E2; /* Couleur orange/rouge claire pour coller à la maquette */
+  color: #1A1A1A;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.commentAuthor {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1A1A1A;
+}
+
+.commentDate {
+  font-size: 12px;
+  color: #888;
+}
+
+.commentBubble {
+  background: #F3F4F6;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.commentText {
+  margin: 0;
+  font-size: 13px;
+  color: #1A1A1A;
+}
+
+/* Add Comment Input */
+.addCommentArea {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.inputWrapper {
+  flex-grow: 1;
+  background: #F3F4F6;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.commentInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  width: 100%;
+  resize: none;
+}
+
+.submitRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.submitBtn {
+  background: #E5E7EB;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background: #D1D5DB;
+}
+
+.metaValue {
+  font-weight: 400;
+  color: #1A1A1A;
+  margin-left: 8px; 
+}
+
+.dueDate svg {
+  color: rgba(31, 31, 31, 1);
+}
