@@ -5,6 +5,7 @@ import styles from './projectSingle.module.css';
 import { getProjectById, getTasksByProjectId } from '@/services/projects.service';
 import { getInitials } from '@/utils/string';
 import TaskListItem from '@/components/projects/TaskListItem';
+import ProjectActionButtons from '@/components/projects/ProjectActionButtons';
 
 interface ProjectPageProps {
   params: {
@@ -15,7 +16,7 @@ interface ProjectPageProps {
 export default async function SingleProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = await params;
   const projectId = resolvedParams.id;
-  
+
   // We retrieve the project and its tasks
   const project = await getProjectById(projectId);
   const tasks = await getTasksByProjectId(projectId);
@@ -36,7 +37,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
 
   // Calculate total contributors (members + 1 owner)
   const totalContributors = (project.members?.length || 0) + (project.owner ? 1 : 0);
- 
+
 
   // Render the project details page
   return (
@@ -61,8 +62,11 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
         </div>
 
         <div className={styles.actionButtons}>
-          <button className={styles.createTaskBtn}>Créer une tâche</button>
-          <button className={styles.iaBtn}>✨ IA</button>
+          <ProjectActionButtons
+            projectId={projectId}
+            btnClassName={styles.createTaskBtn}
+            iaBtnClassName={styles.iaBtn}
+          />
         </div>
       </div>
 
@@ -74,7 +78,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
         </div>
 
         <div className={styles.contributorsList}>
-          
+
           {/* Owner Tag */}
           {project.owner && (
             <div className={styles.contributorItem}>
@@ -96,7 +100,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
               </div>
             </div>
           ))}
-          
+
         </div>
 
       </div>
@@ -142,10 +146,10 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
 
-     {/* Tasks list */}
+        {/* Tasks list */}
         <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            
+
             {/* We check to see if there are any tasks; if not, we display an empty message */}
             {tasks.length > 0 ? (
               tasks.map((task) => (
@@ -160,7 +164,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 }
