@@ -5,6 +5,8 @@ import styles from './TaskListItem.module.css';
 import CalendarIcon from '@/components/ui/CalendarIcon';
 import { AssignedTask, User } from '@/types/dashboard';
 import { getInitials } from '@/utils/string';
+import Modal from '@/components/ui/Modal';
+import EditTaskForm from './EditTaskForm';
 
 interface TaskListItemProps {
     task: AssignedTask;
@@ -14,6 +16,8 @@ interface TaskListItemProps {
 export default function TaskListItem({ task }: TaskListItemProps) {
     // State for managing the opening and closing of the accordion
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const [activeModal, setActiveModal] = useState<'edit_task' | null>(null);
 
     // Utility for setting the color and text of the status badge
     const getStatusDisplay = (status: string) => {
@@ -57,7 +61,12 @@ export default function TaskListItem({ task }: TaskListItemProps) {
                             {statusData.label}
                         </span>
                     </div>
-                    <button className={styles.moreBtn}>•••</button>
+                    <button
+                        className={styles.moreBtn}
+                        onClick={() => setActiveModal('edit_task')}
+                    >
+                        •••
+                    </button>
                 </div>
 
                 <p className={styles.description}>{task.description}</p>
@@ -117,7 +126,7 @@ export default function TaskListItem({ task }: TaskListItemProps) {
                     {/* Field for entering a new comment */}
                     <div className={styles.addCommentArea}>
                         <div className={styles.commentAvatar}>
-                           BE
+                            BE
                         </div>
                         <div className={styles.inputWrapper}>
                             <input
@@ -133,6 +142,18 @@ export default function TaskListItem({ task }: TaskListItemProps) {
 
                 </div>
             )}
+
+            <Modal
+                isOpen={activeModal === 'edit_task'}
+                onClose={() => setActiveModal(null)}
+                title="Modifier"
+            >
+                <EditTaskForm
+                    taskId={task.id}
+                    onClose={() => setActiveModal(null)}
+                />
+            </Modal>
+
         </div>
     );
 }
