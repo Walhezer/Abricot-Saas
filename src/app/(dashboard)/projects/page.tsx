@@ -1,5 +1,6 @@
 import ProjectCard from '@/components/projects/ProjectCard';
 import styles from './projects.module.css';
+import CreateProjectButton from '@/components/projects/CreateProjectButton';
 import { getProjects, getTasksByProjectId } from '@/services/projects.service';
 
 export default async function ProjectsPage() {
@@ -24,9 +25,7 @@ export default async function ProjectsPage() {
           <p className={styles.pageSubtitle}>Gérez vos projets</p>
         </div>
 
-        <button className={styles.createProjectBtn}>
-          <span>+ Créer un projet</span>
-        </button>
+       <CreateProjectButton buttonClassName={styles.createProjectBtn} />
       </div>
 
       <div className={styles.projectsGrid}>
@@ -45,5 +44,6 @@ export default async function ProjectsPage() {
         )}
       </div>
     </div>
+    
   );
 }

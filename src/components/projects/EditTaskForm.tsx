@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './CreateTaskForm.module.css'; 
+import styles from './FormModal.module.css'; 
 import CalendarIcon from '../ui/CalendarIcon';
 import ChevronIcon from '../ui/ChevronIcon';
 

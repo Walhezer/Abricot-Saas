@@ -3,6 +3,7 @@ import { AssignedTask } from '@/types/dashboard';
 import TaskList from '@/components/dashboard/TaskList';
 import KanbanView from '@/components/dashboard/KanbanView';
 import { ViewToggle } from '@/components/dashboard/ViewToggle';
+import CreateProjectButton from '@/components/projects/CreateProjectButton';
 import styles from './dashboard.module.css';
 
 export default async function DashboardPage({
@@ -32,14 +33,14 @@ export default async function DashboardPage({
             Bonjour Alice Dupont, voici un aperçu de vos projets et tâches
           </p>
         </div>
-        
+
         <div>
-           <button className={styles.createProjectBtn}>+ Créer un projet</button>
+          <CreateProjectButton buttonClassName={styles.createProjectBtn} />
         </div>
       </div>
 
       <div className={styles.toggleContainerPlacement}>
-         <ViewToggle currentView={isKanbanView ? 'kanban' : 'list'} />
+        <ViewToggle currentView={isKanbanView ? 'kanban' : 'list'} />
       </div>
 
       {/* ZONE BLANCHE CENTRALE */}
@@ -48,9 +49,8 @@ export default async function DashboardPage({
           <p>Une erreur est survenue lors du chargement des tâches.</p>
         </div>
       ) : (
-      <div className={isKanbanView ? styles.kanbanWrapper : styles.tasksContainer}>
-          {/* RENDU CONDITIONNEL : LISTE OU KANBAN */}
-        {isKanbanView ? (
+        <div className={isKanbanView ? styles.kanbanWrapper : styles.tasksContainer}>
+          {isKanbanView ? (
             <KanbanView tasks={tasks} />
           ) : (
             <TaskList tasks={tasks} />

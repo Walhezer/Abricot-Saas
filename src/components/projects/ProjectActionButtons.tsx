@@ -24,7 +24,7 @@ export default function ProjectActionButtons({ projectId, btnClassName, iaBtnCla
             </button>
 
             <button type="button" className={iaBtnClassName}>
-                ✨ IA
+                 IA
             </button>
 
             <Modal
