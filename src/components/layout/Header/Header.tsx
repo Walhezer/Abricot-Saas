@@ -1,14 +1,14 @@
-'use client'; 
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
-import DashboardIcon from '@/components/ui/DashboardIcon'; 
-import FolderIcon from '@/components/ui/FolderIcon';       
+import DashboardIcon from '@/components/ui/DashboardIcon';
+import FolderIcon from '@/components/ui/FolderIcon';
 
 export default function Header() {
-  const pathname = usePathname(); 
+  const pathname = usePathname();
 
   return (
     <header className={styles.header}>
@@ -24,16 +24,16 @@ export default function Header() {
         </div>
 
         <nav className={styles.navigation}>
-          <Link 
-            href="/dashboard" 
+          <Link
+            href="/dashboard"
             className={`${styles.navLink} ${pathname === '/dashboard' ? styles.activeLink : ''}`}
           >
             <DashboardIcon />
             <span>Tableau de bord</span>
           </Link>
-          
-          <Link 
-            href="/projects" 
+
+          <Link
+            href="/projects"
             className={`${styles.navLink} ${pathname.startsWith('/projects') ? styles.activeLink : ''}`}
           >
             <FolderIcon />
@@ -42,7 +42,9 @@ export default function Header() {
         </nav>
 
         <div className={styles.headerRight}>
-          <div className={styles.avatar}>AD</div>
+          <Link href="/account" style={{ textDecoration: 'none' }}>
+            <div className={styles.avatar}>AD</div>
+          </Link>
         </div>
       </div>
     </header>
