@@ -12,3 +12,15 @@ export async function setAuthToken(token: string) {
     path: '/',
   });
 }
+// To retrieve the token and include it in your API requests
+export async function getAuthToken() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('abricot_token');
+  return token?.value;
+}
+
+// To handle user logout
+export async function removeAuthToken() {
+  const cookieStore = await cookies();
+  cookieStore.delete('abricot_token');
+}

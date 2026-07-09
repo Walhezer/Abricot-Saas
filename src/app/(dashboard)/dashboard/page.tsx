@@ -18,9 +18,21 @@ export default async function DashboardPage({
   const isKanbanView = resolvedParams.view === 'kanban';
 
   try {
-    tasks = await getAssignedTasks();
+    const response = await getAssignedTasks();
+    const rawData = response as unknown as Record<string, unknown>;
+
+    // Handle different API response structures safely
+    if (rawData && Array.isArray(rawData.data)) {
+      tasks = rawData.data as AssignedTask[];
+    } else if (rawData && Array.isArray(rawData.tasks)) {
+      tasks = rawData.tasks as AssignedTask[];
+    } else if (Array.isArray(response)) {
+      tasks = response as AssignedTask[];
+    } else {
+      tasks = [];
+    }
   } catch (error) {
-    console.error("Erreur API:", error);
+    console.error("API Error:", error);
     isError = true;
   }
 
@@ -43,7 +55,6 @@ export default async function DashboardPage({
         <ViewToggle currentView={isKanbanView ? 'kanban' : 'list'} />
       </div>
 
-      {/* ZONE BLANCHE CENTRALE */}
       {isError ? (
         <div className={styles.tasksContainer}>
           <p>Une erreur est survenue lors du chargement des tâches.</p>

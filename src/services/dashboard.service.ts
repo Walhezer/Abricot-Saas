@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { Project, AssignedTask } from '@/types/dashboard';
 
-const API_URL = 'http://localhost:8000'; 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api'; 
 
 export async function getDashboardProjects(): Promise<Project[]> {
   const cookieStore = await cookies();
