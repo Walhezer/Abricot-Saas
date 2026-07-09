@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { loginWithCredentials } from '@/services/auth.service';
-import { setAuthToken } from '@/app/actions/auth';
+import { loginWithCredentials } from '@/app/actions/auth';
 import styles from './login.module.css';
 
 export default function LoginPage() {
@@ -24,8 +23,7 @@ export default function LoginPage() {
     try {
       const res = await loginWithCredentials(email, password);
       
-      if (res.success && res.data?.token) {
-        await setAuthToken(res.data.token);
+      if (res.success) {
         router.push('/dashboard');
       } else {
         setError(res.message || 'Identifiants invalides.');

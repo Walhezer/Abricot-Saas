@@ -7,17 +7,18 @@ import { AssignedTask, User } from '@/types/dashboard';
 import { getInitials } from '@/utils/string';
 import Modal from '@/components/ui/Modal';
 import EditTaskForm from './EditTaskForm';
+import { addComment } from '@/app/actions/comments';
 
 interface TaskListItemProps {
     task: AssignedTask;
     currentUser: User;
 }
 
-export default function TaskListItem({ task }: TaskListItemProps) {
+export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
     // State for managing the opening and closing of the accordion
     const [isExpanded, setIsExpanded] = useState(false);
-
     const [activeModal, setActiveModal] = useState<'edit_task' | null>(null);
+    const [commentError, setCommentError] = useState<string | null>(null);
 
     // Utility for setting the color and text of the status badge
     const getStatusDisplay = (status: string) => {
@@ -33,6 +34,7 @@ export default function TaskListItem({ task }: TaskListItemProps) {
 
     // Date format (e.g., “March 9”)
     const formatDate = (dateString: string) => {
+        if (!dateString) return '';
         return new Date(dateString).toLocaleDateString('fr-FR', {
             day: 'numeric',
             month: 'long'
@@ -41,12 +43,21 @@ export default function TaskListItem({ task }: TaskListItemProps) {
 
     // Date and time format for comments (e.g., “March 23, 11:20”)
     const formatDateTime = (dateString: string) => {
+        if (!dateString) return '';
         return new Date(dateString).toLocaleDateString('fr-FR', {
             day: 'numeric',
             month: 'long',
             hour: '2-digit',
             minute: '2-digit'
         }).replace(' à', ',');
+    };
+
+    const handleAddComment = async (formData: FormData) => {
+        setCommentError(null);
+        const result = await addComment(task.projectId, task.id, formData);
+        if (!result.success) {
+            setCommentError(result.message || 'Une erreur est survenue.');
+        }
     };
 
     return (
@@ -124,21 +135,23 @@ export default function TaskListItem({ task }: TaskListItemProps) {
                     ))}
 
                     {/* Field for entering a new comment */}
-                    <div className={styles.addCommentArea}>
+                    <form action={handleAddComment} className={styles.addCommentArea}>
                         <div className={styles.commentAvatar}>
-                            BE
+                            {getInitials(currentUser?.name || "User")}
                         </div>
                         <div className={styles.inputWrapper}>
                             <input
                                 type="text"
+                                name="content"
                                 placeholder="Ajouter un commentaire..."
                                 className={styles.commentInput}
                             />
                             <div className={styles.submitRow}>
-                                <button className={styles.submitBtn}>Envoyer</button>
+                                {commentError && <p className={styles.commentError}>{commentError}</p>}
+                                <button type="submit" className={styles.submitBtn}>Envoyer</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
             )}
@@ -149,8 +162,16 @@ export default function TaskListItem({ task }: TaskListItemProps) {
                 title="Modifier"
             >
                 <EditTaskForm
+                    projectId={task.projectId}
                     taskId={task.id}
                     onClose={() => setActiveModal(null)}
+                    initialData={{
+                        title: task.title || '',
+                        description: task.description || '',
+                        dueDate: task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : '',
+                        assignedTo: task.assignees?.[0]?.user?.name || '',
+                        status: (task.status as 'TODO' | 'IN_PROGRESS' | 'DONE') || 'TODO'
+                    }}
                 />
             </Modal>
 

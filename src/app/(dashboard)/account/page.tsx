@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import styles from './account.module.css';
-import { getAccountInfo, updateAccountInfo } from '@/services/account.service';
+import { updateAccountInfo } from '@/app/actions/account';
+import { getAccountInfo } from '@/services/account.service';
 
 export default function AccountPage() {
   // Initialize form states

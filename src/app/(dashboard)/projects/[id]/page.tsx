@@ -6,27 +6,69 @@ import { getProjectById, getTasksByProjectId } from '@/services/projects.service
 import { getInitials } from '@/utils/string';
 import TaskListItem from '@/components/projects/TaskListItem';
 import ProjectActionButtons from '@/components/projects/ProjectActionButtons';
+import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
+
+// Infer types directly from service return signatures
+type Project = Awaited<ReturnType<typeof getProjectById>>;
+type AssignedTask = Awaited<ReturnType<typeof getTasksByProjectId>> extends (infer U)[] ? U : never;
+
+// Define a safe UI structure to replace 'any'
+interface SafeProjectData {
+  name: string;
+  description?: string;
+  owner?: { name: string };
+  members?: Array<{ id: string; user: { name: string } }>;
+}
 
 interface ProjectPageProps {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 }
 
 export default async function SingleProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = await params;
   const projectId = resolvedParams.id;
 
-  // We retrieve the project and its tasks
-  const project = await getProjectById(projectId);
-  const tasks = await getTasksByProjectId(projectId);
+  let project: Project | null = null;
+  let tasks: AssignedTask[] = [];
+  let isError = false;
 
-  // If project is not found or API fails, show a fallback
-  if (!project) {
+  try {
+    // 1. Fetch and extract project details safely
+    const projectResponse = await getProjectById(projectId);
+    const rawProject = projectResponse as unknown as Record<string, unknown>;
+
+    if (rawProject && rawProject.data) {
+      project = rawProject.data as unknown as Project;
+    } else if (rawProject && rawProject.project) {
+      project = rawProject.project as unknown as Project;
+    } else if (projectResponse) {
+      project = projectResponse as unknown as Project;
+    }
+
+    // 2. Fetch and extract tasks safely
+    if (project) {
+      const tasksResponse = await getTasksByProjectId(projectId);
+      const rawTasks = tasksResponse as unknown as Record<string, unknown>;
+
+      if (rawTasks && Array.isArray(rawTasks.data)) {
+        tasks = rawTasks.data as unknown as AssignedTask[];
+      } else if (rawTasks && Array.isArray(rawTasks.tasks)) {
+        tasks = rawTasks.tasks as unknown as AssignedTask[];
+      } else if (Array.isArray(tasksResponse)) {
+        tasks = tasksResponse as unknown as AssignedTask[];
+      }
+    }
+  } catch (error) {
+    console.error(`API Error fetching single project (ID: ${projectId}):`, error);
+    isError = true;
+  }
+
+  // Fallback UI
+  if (isError || !project) {
     return (
       <div className={styles.pageWrapper}>
         <div style={{ padding: '40px', textAlign: 'center', color: '#666' }}>
-          <h2>Projet introuvable</h2>
+          <h2>Projet introuvable ou erreur de chargement</h2>
           <Link href="/projects" style={{ color: '#D3590B', textDecoration: 'underline' }}>
             Retour à la liste des projets
           </Link>
@@ -35,14 +77,12 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
     );
   }
 
-  // Calculate total contributors (members + 1 owner)
-  const totalContributors = (project.members?.length || 0) + (project.owner ? 1 : 0);
+  // Safely cast project to our defined UI interface to avoid 'any'
+  const safeProject = project as unknown as SafeProjectData;
+  const totalContributors = (safeProject.members?.length || 0) + (safeProject.owner ? 1 : 0);
 
-
-  // Render the project details page
   return (
     <div className={styles.pageWrapper}>
-
       {/* Main Header */}
       <div className={styles.topBar}>
         <Link href="/projects" className={styles.backBtn}>
@@ -51,13 +91,19 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
 
         <div className={styles.projectHeaderContent}>
           <div className={styles.titleRow}>
-            {/* Dynamic Title */}
-            <h1 className={styles.projectTitle}>{project.name}</h1>
-            <span className={styles.modifyLink}>Modifier</span>
+            <h1 className={styles.projectTitle}>{safeProject.name}</h1>
+            <EditProjectTrigger
+              projectId={projectId}
+              className={styles.modifyLink}
+              projectData={{
+                title: safeProject.name,
+                description: safeProject.description || '',
+                contributors: "2_collabs" 
+              }}
+            />
           </div>
-          {/* Dynamic Description */}
           <p className={styles.projectDescription}>
-            {project.description}
+            {safeProject.description}
           </p>
         </div>
 
@@ -72,25 +118,23 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
 
       {/* Dynamic Contributors Bar */}
       <div className={styles.contributorsBar}>
-
         <div className={styles.contributorsLabel}>
           Contributeurs <span>{totalContributors} {totalContributors > 1 ? 'personnes' : 'personne'}</span>
         </div>
 
         <div className={styles.contributorsList}>
-
           {/* Owner Tag */}
-          {project.owner && (
+          {safeProject.owner && (
             <div className={styles.contributorItem}>
               <div className={`${styles.avatarCircle} ${styles.ownerAvatar}`}>
-                {getInitials(project.owner.name)}
+                {getInitials(safeProject.owner.name)}
               </div>
               <div className={`${styles.rolePill} ${styles.ownerPill}`}>Propriétaire</div>
             </div>
           )}
 
-          {/* Members Tags */}
-          {project.members?.map((member) => (
+          {/* Members Tags - TypeScript infers 'member' automatically from SafeProjectData */}
+          {safeProject.members?.map((member) => (
             <div key={member.id} className={styles.contributorItem}>
               <div className={`${styles.avatarCircle} ${styles.memberAvatar}`}>
                 {getInitials(member.user.name)}
@@ -100,15 +144,12 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
               </div>
             </div>
           ))}
-
         </div>
-
       </div>
 
       {/* Tasks Area */}
       <div className={styles.tasksSection}>
-
-        {/* Toolbar (Filters, Views, Search) */}
+        {/* Toolbar */}
         <div className={styles.toolbar}>
           <div>
             <h2 style={{ fontSize: '18px', margin: '0 0 4px 0', color: '#1A1A1A' }}>Tâches</h2>
@@ -116,7 +157,6 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
           </div>
 
           <div className={styles.toolbarRight}>
-            {/* View selector */}
             <div className={styles.viewSelector}>
               <button className={`${styles.viewBtn} ${styles.viewBtnActive}`}>
                 <ListIcon />
@@ -128,13 +168,11 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
               </button>
             </div>
 
-            {/* Filter by Status */}
             <button className={styles.filterSelect}>
               <span>Statut</span>
               <span style={{ fontSize: '10px' }}>▼</span>
             </button>
 
-            {/* Search bar */}
             <div className={styles.searchContainer}>
               <input
                 type="text"
@@ -149,22 +187,23 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
         {/* Tasks list */}
         <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-            {/* We check to see if there are any tasks; if not, we display an empty message */}
             {tasks.length > 0 ? (
+              // TypeScript infers 'task' automatically from AssignedTask[]
               tasks.map((task) => (
-                <TaskListItem key={task.id} task={task} currentUser={project.owner} />
+                <TaskListItem
+                  key={(task as unknown as { id: string }).id}
+                  task={task as never}
+                  currentUser={safeProject.owner as never}
+                />
               ))
             ) : (
               <div style={{ textAlign: 'center', color: '#888', padding: '40px 0' }}>
                 Aucune tâche n&apos;a encore été créée pour ce projet.
               </div>
             )}
-
           </div>
         </div>
       </div>
-
     </div>
   );
 }

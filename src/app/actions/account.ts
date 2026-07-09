@@ -1,16 +1,13 @@
+'use server';
+
 import { getAuthToken } from '@/app/actions/auth'; 
 import { User } from '@/types/dashboard';
+import { UpdateAccountDTO } from '@/services/account.service';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
-export interface UpdateAccountDTO {
-  name: string;
-  email: string;
-  password?: string;
-}
-
-// Retrieves information about the logged-in user (GET)
-export async function getAccountInfo(): Promise<User> {
+// Updates the user's information (PUT)
+export async function updateAccountInfo(data: UpdateAccountDTO): Promise<User> {
   const token = await getAuthToken();
 
   if (!token) {
@@ -18,16 +15,17 @@ export async function getAccountInfo(): Promise<User> {
   }
 
   const response = await fetch(`${API_URL}/auth/profile`, {
-    method: 'GET',
+    method: 'PUT', 
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` 
+      'Authorization': `Bearer ${token}`
     },
-    cache: 'no-store', 
+    body: JSON.stringify(data),
   });
 
   if (!response.ok) {
-    throw new Error("Erreur lors de la récupération des données du compte.");
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.message || "Erreur lors de la mise à jour des informations.");
   }
 
   return response.json();

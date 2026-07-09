@@ -1,34 +1,73 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './FormModal.module.css'; 
 import CalendarIcon from '../ui/CalendarIcon';
 import ChevronIcon from '../ui/ChevronIcon';
+import { updateTask } from '@/app/actions/tasks';
 
-interface EditTaskFormProps {
-  taskId: string;
-  onClose: () => void;
-  // Next, I need to add: initialData: TaskType
+// Define the expected shape of the initial task data
+export interface EditTaskData {
+  title: string;
+  description: string;
+  dueDate: string; // Expected format: YYYY-MM-DD
+  assignedTo: string;
+  status: 'TODO' | 'IN_PROGRESS' | 'DONE'; 
 }
 
-export default function EditTaskForm({ taskId, onClose }: EditTaskFormProps) {
+interface EditTaskFormProps {
+  projectId: string; 
+  taskId: string;
+  initialData: EditTaskData;
+  onClose: () => void;
+}
 
-  const [title, setTitle] = useState('Authentification JWT');
-  const [description, setDescription] = useState('Implémenter le système d\'authentification avec tokens JWT');
-  const [dueDate, setDueDate] = useState('2026-03-09'); 
-  const [assignedTo, setAssignedTo] = useState('2_collabs');
-  const [status, setStatus] = useState<'todo' | 'in_progress' | 'done'>('todo');
+export default function EditTaskForm({ projectId, taskId, initialData, onClose }: EditTaskFormProps) {
+  const router = useRouter(); 
+
+  const [title, setTitle] = useState(initialData.title);
+  const [description, setDescription] = useState(initialData.description);
+  const [dueDate, setDueDate] = useState(initialData.dueDate); 
+  const [assignedTo, setAssignedTo] = useState(initialData.assignedTo);
+  const [status, setStatus] = useState(initialData.status);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Tâche mise à jour :", { taskId, title, description, dueDate, assignedTo, status });
-    onClose();
+    setIsSubmitting(true);
+    setError(null);
+    
+    try {
+      await updateTask(projectId, taskId, {
+        title,
+        description,
+        dueDate,
+        status,
+      });
+      
+      router.refresh();
+      
+      onClose();
+    } catch (err) {
+      console.error("Erreur lors de la sauvegarde :", err);
+      setError("Impossible de mettre à jour la tâche. Veuillez réessayer.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid = title.trim() !== '' && description.trim() !== '' && dueDate !== '';
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
+      
+      {error && (
+        <div style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px', textAlign: 'center' }}>
+          {error}
+        </div>
+      )}
       
       <div className={styles.formGroup}>
         <label htmlFor="edit-title">Titre</label>
@@ -94,22 +133,22 @@ export default function EditTaskForm({ taskId, onClose }: EditTaskFormProps) {
         <div className={styles.statusContainer}>
           <button
             type="button"
-            className={`${styles.statusPill} ${styles.todoColor} ${status === 'todo' ? styles.activePill : styles.inactivePill}`}
-            onClick={() => setStatus('todo')}
+            className={`${styles.statusPill} ${styles.todoColor} ${status === 'TODO' ? styles.activePill : styles.inactivePill}`}
+            onClick={() => setStatus('TODO')}
           >
             À faire
           </button>
           <button
             type="button"
-            className={`${styles.statusPill} ${styles.inProgressColor} ${status === 'in_progress' ? styles.activePill : styles.inactivePill}`}
-            onClick={() => setStatus('in_progress')}
+            className={`${styles.statusPill} ${styles.inProgressColor} ${status === 'IN_PROGRESS' ? styles.activePill : styles.inactivePill}`}
+            onClick={() => setStatus('IN_PROGRESS')}
           >
             En cours
           </button>
           <button
             type="button"
-            className={`${styles.statusPill} ${styles.doneColor} ${status === 'done' ? styles.activePill : styles.inactivePill}`}
-            onClick={() => setStatus('done')}
+            className={`${styles.statusPill} ${styles.doneColor} ${status === 'DONE' ? styles.activePill : styles.inactivePill}`}
+            onClick={() => setStatus('DONE')}
           >
             Terminée
           </button>
@@ -120,9 +159,10 @@ export default function EditTaskForm({ taskId, onClose }: EditTaskFormProps) {
         <button 
           type="submit" 
           className={styles.submitBtn}
-          disabled={!isFormValid}
+          disabled={!isFormValid || isSubmitting}
         >
-          Enregistrer
+          {/* Changement du texte pendant le chargement */}
+          {isSubmitting ? 'Enregistrement...' : 'Enregistrer'}
         </button>
       </div>
     </form>
