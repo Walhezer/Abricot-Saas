@@ -1,7 +1,4 @@
 import Link from 'next/link';
-import ListIcon from '@/components/ui/ListIcon';
-import CalendarIcon from '@/components/ui/CalendarIcon';
-import SearchIcon from '@/components/ui/SearchIcon';
 import styles from './projectSingle.module.css';
 import { getProjectById, getTasksByProjectId } from '@/services/projects.service';
 import { getInitials } from '@/utils/string';
@@ -9,6 +6,7 @@ import TaskListItem from '@/components/projects/TaskListItem';
 import ProjectActionButtons from '@/components/projects/ProjectActionButtons';
 import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
 import { getAccountInfo } from '@/services/account.service';
+import TaskToolbar from '@/components/projects/TaskToolbar';
 
 // Infer types directly from service return signatures
 type Project = Awaited<ReturnType<typeof getProjectById>>;
@@ -154,45 +152,13 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
         </div>
       </div>
 
-      {/* Tasks Area */}
+    {/* Tasks Area (La grande Card blanche) */}
       <div className={styles.tasksSection}>
-        {/* Toolbar */}
-        <div className={styles.toolbar}>
-          <div>
-            <h2 style={{ fontSize: '18px', margin: '0 0 4px 0', color: '#1A1A1A' }}>Tâches</h2>
-            <p style={{ fontSize: '13px', color: '#888', margin: '0' }}>Par ordre de priorité</p>
-          </div>
+        
+        <TaskToolbar />
 
-          <div className={styles.toolbarRight}>
-            <div className={styles.viewSelector}>
-              <button className={`${styles.viewBtn} ${styles.viewBtnActive}`}>
-                <ListIcon />
-                <span>Liste</span>
-              </button>
-              <button className={styles.viewBtn}>
-                <CalendarIcon />
-                <span>Calendrier</span>
-              </button>
-            </div>
-
-            <button className={styles.filterSelect}>
-              <span>Statut</span>
-              <span style={{ fontSize: '10px' }}>▼</span>
-            </button>
-
-            <div className={styles.searchContainer}>
-              <input
-                type="text"
-                placeholder="Rechercher une tâche"
-                className={styles.searchInput}
-              />
-              <span className={styles.searchIcon}><SearchIcon /></span>
-            </div>
-          </div>
-        </div>
-
-        {/* Tasks list */}
-        <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px' }}>
+        {/* Tasks list (Maintenant à L'INTÉRIEUR de la Card) */}
+        <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px', marginTop: '24px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {tasks.length > 0 ? (
               tasks.map((task) => (
@@ -209,7 +175,8 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
             )}
           </div>
         </div>
-      </div>
+        
+      </div> 
     </div>
   );
 }

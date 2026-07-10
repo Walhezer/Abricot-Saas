@@ -11,7 +11,6 @@
   padding: 20px 24px;
 }
 
-/* Header & Title */
 .header {
   display: flex;
   justify-content: space-between;
@@ -32,7 +31,6 @@
   color: #1A1A1A;
 }
 
-/* Badges */
 .statusBadge {
   padding: 4px 10px;
   border-radius: 12px;
@@ -54,7 +52,6 @@
   color: #888;
 }
 
-/* Description & Meta */
 .description {
   color: #666;
   font-size: 14px;
@@ -83,7 +80,6 @@
   color: #1A1A1A;
 }
 
-/* Assignees Pills */
 .assigneeList {
   display: flex;
   gap: 8px;
@@ -110,7 +106,6 @@
   margin-right: 6px;
 }
 
-/* Toggle Accordion Button */
 .toggleBtn {
   width: 100%;
   display: flex;
@@ -130,7 +125,6 @@
   background: #F9FAFB;
 }
 
-/* Comments Section */
 .commentsSection {
   padding: 0 24px 24px 24px;
   background: #FAFAFA;
@@ -144,7 +138,7 @@
 }
 
 .commentAvatar {
-  background: #FEE2E2; /* Couleur orange/rouge claire pour coller à la maquette */
+  background: #FEE2E2; 
   color: #1A1A1A;
   border-radius: 50%;
   width: 32px;
@@ -240,4 +234,21 @@
 
 .dueDate svg {
   color: rgba(31, 31, 31, 1);
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chevron svg {
+  width: 16px;
+  height: 8px;
+  transform: rotate(0deg); 
+  transition: transform 0.2s ease-in-out;
+}
+
+.chevron.isOpen svg {
+  transform: rotate(180deg); 
 }

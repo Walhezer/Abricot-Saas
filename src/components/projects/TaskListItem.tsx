@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import styles from './TaskListItem.module.css';
 import CalendarIcon from '@/components/ui/CalendarIcon';
+import ChevronIcon from '@/components/ui/ChevronIcon';
 import { AssignedTask, User } from '@/types/dashboard';
 import { getInitials } from '@/utils/string';
 import Modal from '@/components/ui/Modal';
@@ -109,8 +110,8 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
                 onClick={() => setIsExpanded(!isExpanded)}
             >
                 <span>Commentaires ({task.comments?.length || 0})</span>
-                <span className={styles.chevron}>
-                    {isExpanded ? '⌃' : '⌄'}
+                <span className={`${styles.chevron} ${isExpanded ? styles.isOpen : ''}`}>
+                    <ChevronIcon />
                 </span>
             </button>
 

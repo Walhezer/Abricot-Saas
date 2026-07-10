@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AssignedTask } from '@/types/dashboard';
+import SearchBar from '@/components/ui/SearchBar';
 import { Folder, Calendar, MessageSquareText, Search } from 'lucide-react';
 import styles from './TaskList.module.css';
 
@@ -10,12 +11,12 @@ interface TaskListProps {
 }
 
 const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'TODO': return { label: 'À faire', className: styles.badgeTODO || '' };
-      case 'IN_PROGRESS': return { label: 'En cours', className: styles.badgeIN_PROGRESS || '' };
-      case 'DONE': return { label: 'Terminée', className: styles.badgeDONE || '' };
-      default: return { label: status, className: styles.badgeTODO || '' };
-    }
+  switch (status) {
+    case 'TODO': return { label: 'À faire', className: styles.badgeTODO || '' };
+    case 'IN_PROGRESS': return { label: 'En cours', className: styles.badgeIN_PROGRESS || '' };
+    case 'DONE': return { label: 'Terminée', className: styles.badgeDONE || '' };
+    default: return { label: status, className: styles.badgeTODO || '' };
+  }
 };
 
 export default function TaskList({ tasks }: TaskListProps) {
@@ -36,17 +37,12 @@ export default function TaskList({ tasks }: TaskListProps) {
           <h2>Mes tâches assignées</h2>
           <p>Par ordre de priorité</p>
         </div>
-        
-        <div className={styles.searchContainer}>
-          <Search size={16} className={styles.searchIcon} />
-          <input 
-            type="text" 
-            placeholder="Rechercher une tâche" 
-            className={styles.searchInput}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
+
+        <SearchBar
+          placeholder="Rechercher un projet..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
 
       {/* --- TASK LIST --- */}
@@ -64,22 +60,22 @@ export default function TaskList({ tasks }: TaskListProps) {
                 <div className={styles.taskInfo}>
                   <h3 className={styles.taskTitle}>{task.title}</h3>
                   <p className={styles.taskDescription}>{task.description}</p>
-                  
+
                   <div className={styles.taskMeta}>
                     <span className={styles.metaItem}>
                       <Folder size={15} fill="currentColor" className={styles.metaIcon} />
                       {task.project?.name || 'Projet inconnu'}
                     </span>
-                    
+
                     <span className={styles.separator}>|</span>
-                    
+
                     <span className={styles.metaItem}>
                       <Calendar size={15} className={styles.metaIcon} />
                       {formattedDate}
                     </span>
-                    
+
                     <span className={styles.separator}>|</span>
-                    
+
                     <span className={styles.metaItem}>
                       <MessageSquareText size={15} fill="currentColor" className={styles.metaIcon} />
                       {task.comments?.length || 0}
@@ -87,7 +83,7 @@ export default function TaskList({ tasks }: TaskListProps) {
                   </div>
 
                 </div>
-                
+
                 <div className={styles.taskActions}>
                   <span className={`${styles.badge} ${statusData.className}`}>{statusData.label}</span>
                   <button className={styles.viewBtn}>Voir</button>

@@ -1,0 +1,92 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .toolbarRight {
+    display: flex;
+    align-items: center; 
+    gap: 16px;
+  }
+  
+  .viewSelector {
+    display: flex;
+    gap: 8px; 
+  }
+  
+  .viewBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;        
+    padding: 0 16px;     
+    gap: 10px;           
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;  
+    cursor: pointer;
+    background: transparent;
+    color: #D3590B;      
+    transition: all 0.2s ease;
+  }
+  
+  .viewBtnActive {
+    background-color: #FFE6DC; 
+  }
+  
+  .filterSelect {
+    height: 63px; 
+    padding: 0 24px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background-color: transparent;
+    border: 1px solid #E0E0E0; 
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    outline: none;
+  }
+
+.filterSelect svg {
+  width: 16px;
+  height: 8px;
+  transform: rotate(180deg); 
+  transition: transform 0.2s ease-in-out; 
+}
+  
+  .searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchInput {
+    height: 45px;         
+    width: 260px;         
+    padding: 0 40px 0 16px; 
+    border: 1px solid #ECECEC;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1A1A1A;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  
+  .searchInput:focus {
+    border-color: #D3590B;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    right: 16px;
+    color: #888;
+    pointer-events: none;
+  }
