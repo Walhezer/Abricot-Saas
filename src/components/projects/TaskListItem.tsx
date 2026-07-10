@@ -7,6 +7,7 @@ import ChevronIcon from '@/components/ui/ChevronIcon';
 import { AssignedTask, User } from '@/types/dashboard';
 import { getInitials } from '@/utils/string';
 import Modal from '@/components/ui/Modal';
+import TaskOptionsModal from './TaskOptionsModal';
 import EditTaskForm from './EditTaskForm';
 import { addComment } from '@/app/actions/comments';
 
@@ -18,7 +19,7 @@ interface TaskListItemProps {
 export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
     // State for managing the opening and closing of the accordion
     const [isExpanded, setIsExpanded] = useState(false);
-    const [activeModal, setActiveModal] = useState<'edit_task' | null>(null);
+    const [activeModal, setActiveModal] = useState<'options' | 'edit_task' | null>(null);
     const [commentError, setCommentError] = useState<string | null>(null);
 
     // Utility for setting the color and text of the status badge
@@ -75,7 +76,7 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
                     </div>
                     <button
                         className={styles.moreBtn}
-                        onClick={() => setActiveModal('edit_task')}
+                        onClick={() => setActiveModal('options')}
                     >
                         •••
                     </button>
@@ -156,7 +157,12 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
 
                 </div>
             )}
-
+            <TaskOptionsModal
+                isOpen={activeModal === 'options'}
+                onClose={() => setActiveModal(null)}
+                onEdit={() => setActiveModal('edit_task')}
+                task={task}
+            />
             <Modal
                 isOpen={activeModal === 'edit_task'}
                 onClose={() => setActiveModal(null)}
