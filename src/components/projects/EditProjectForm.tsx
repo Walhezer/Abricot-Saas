@@ -1,25 +1,53 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './FormModal.module.css'; 
 import ChevronIcon from '@/components/ui/ChevronIcon';
+import { updateProject } from '@/app/actions/projects';
+
+export interface EditProjectData {
+  title: string;
+  description: string;
+  contributors: string; 
+}
 
 interface EditProjectFormProps {
   projectId: string;
+  initialData: EditProjectData;
   onClose: () => void;
-  // Next, I need to add: initialData: TaskType
 }
 
-export default function EditProjectForm({ projectId, onClose }: EditProjectFormProps) {
-  // Valeurs initiales "en dur" basées sur ta maquette
-  const [title, setTitle] = useState('Input');
-  const [description, setDescription] = useState('Input');
-  const [contributors, setContributors] = useState('2_collabs');
+export default function EditProjectForm({ projectId, initialData, onClose }: EditProjectFormProps) {
+  const router = useRouter();
+
+  const [title, setTitle] = useState(initialData.title);
+  const [description, setDescription] = useState(initialData.description);
+  const [contributors, setContributors] = useState(initialData.contributors);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Projet mis à jour :", { projectId, title, description, contributors });
-    onClose();
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await updateProject(projectId, { 
+        title, 
+        description 
+        // Ajoute 'contributors' ici si ton API l'accepte
+      });
+      
+      router.refresh();
+      onClose();
+    } catch (err) {
+      console.error("Erreur lors de la mise à jour du projet :", err);
+      setError("Impossible de modifier le projet.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid = title.trim() !== '' && description.trim() !== '';
@@ -27,6 +55,12 @@ export default function EditProjectForm({ projectId, onClose }: EditProjectFormP
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       
+      {error && (
+        <div style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px', textAlign: 'center' }}>
+          {error}
+        </div>
+      )}
+
       <div className={styles.formGroup}>
         <label htmlFor="edit-project-title">Titre*</label>
         <input
@@ -73,9 +107,9 @@ export default function EditProjectForm({ projectId, onClose }: EditProjectFormP
         <button 
           type="submit" 
           className={styles.submitBtn}
-          disabled={!isFormValid}
+          disabled={!isFormValid || isSubmitting}
         >
-          Enregistrer
+          {isSubmitting ? 'Enregistrement...' : 'Enregistrer'}
         </button>
       </div>
     </form>

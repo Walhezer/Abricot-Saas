@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import ListIcon from '@/components/ui/ListIcon';
 import CalendarIcon from '@/components/ui/CalendarIcon';
+import SearchIcon from '@/components/ui/SearchIcon';
 import styles from './projectSingle.module.css';
 import { getProjectById, getTasksByProjectId } from '@/services/projects.service';
 import { getInitials } from '@/utils/string';
 import TaskListItem from '@/components/projects/TaskListItem';
 import ProjectActionButtons from '@/components/projects/ProjectActionButtons';
 import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
+import { getAccountInfo } from '@/services/account.service';
 
 // Infer types directly from service return signatures
 type Project = Awaited<ReturnType<typeof getProjectById>>;
@@ -14,9 +16,10 @@ type AssignedTask = Awaited<ReturnType<typeof getTasksByProjectId>> extends (inf
 
 // Define a safe UI structure to replace 'any'
 interface SafeProjectData {
+  id: string;
   name: string;
   description?: string;
-  owner?: { name: string };
+  owner?: { id: string; name: string };
   members?: Array<{ id: string; user: { name: string } }>;
 }
 
@@ -30,9 +33,11 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
 
   let project: Project | null = null;
   let tasks: AssignedTask[] = [];
+  let currentUser = null;
   let isError = false;
 
   try {
+    currentUser = await getAccountInfo();
     // 1. Fetch and extract project details safely
     const projectResponse = await getProjectById(projectId);
     const rawProject = projectResponse as unknown as Record<string, unknown>;
@@ -80,7 +85,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
   // Safely cast project to our defined UI interface to avoid 'any'
   const safeProject = project as unknown as SafeProjectData;
   const totalContributors = (safeProject.members?.length || 0) + (safeProject.owner ? 1 : 0);
-
+  const isOwner = currentUser?.id === safeProject.owner?.id;
   return (
     <div className={styles.pageWrapper}>
       {/* Main Header */}
@@ -92,15 +97,17 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
         <div className={styles.projectHeaderContent}>
           <div className={styles.titleRow}>
             <h1 className={styles.projectTitle}>{safeProject.name}</h1>
-            <EditProjectTrigger
-              projectId={projectId}
-              className={styles.modifyLink}
-              projectData={{
-                title: safeProject.name,
-                description: safeProject.description || '',
-                contributors: "2_collabs" 
-              }}
-            />
+            {isOwner && (
+              <EditProjectTrigger
+                projectId={projectId}
+                className={styles.modifyLink}
+                projectData={{
+                  title: safeProject.name,
+                  description: safeProject.description || '',
+                  contributors: "2_collabs"
+                }}
+              />
+            )}
           </div>
           <p className={styles.projectDescription}>
             {safeProject.description}
@@ -176,10 +183,10 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
             <div className={styles.searchContainer}>
               <input
                 type="text"
-                placeholder="Rechercher une tâche..."
+                placeholder="Rechercher une tâche"
                 className={styles.searchInput}
               />
-              <span className={styles.searchIcon}>🔍</span>
+              <span className={styles.searchIcon}><SearchIcon /></span>
             </div>
           </div>
         </div>
@@ -188,7 +195,6 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
         <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {tasks.length > 0 ? (
-              // TypeScript infers 'task' automatically from AssignedTask[]
               tasks.map((task) => (
                 <TaskListItem
                   key={(task as unknown as { id: string }).id}
