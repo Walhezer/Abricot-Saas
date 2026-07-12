@@ -2,17 +2,14 @@ import Link from 'next/link';
 import styles from './projectSingle.module.css';
 import { getProjectById, getTasksByProjectId } from '@/services/projects.service';
 import { getInitials } from '@/utils/string';
-import TaskListItem from '@/components/projects/TaskListItem';
 import ProjectActionButtons from '@/components/projects/ProjectActionButtons';
 import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
 import { getAccountInfo } from '@/services/account.service';
-import TaskToolbar from '@/components/projects/TaskToolbar';
+import TaskSection from '@/components/projects/TaskSection';
 
-// Infer types directly from service return signatures
 type Project = Awaited<ReturnType<typeof getProjectById>>;
 type AssignedTask = Awaited<ReturnType<typeof getTasksByProjectId>> extends (infer U)[] ? U : never;
 
-// Define a safe UI structure to replace 'any'
 interface SafeProjectData {
   id: string;
   name: string;
@@ -36,7 +33,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
 
   try {
     currentUser = await getAccountInfo();
-    // 1. Fetch and extract project details safely
+    // Fetch and extract project details safely
     const projectResponse = await getProjectById(projectId);
     const rawProject = projectResponse as unknown as Record<string, unknown>;
 
@@ -48,7 +45,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
       project = projectResponse as unknown as Project;
     }
 
-    // 2. Fetch and extract tasks safely
+    // Fetch and extract tasks safely
     if (project) {
       const tasksResponse = await getTasksByProjectId(projectId);
       const rawTasks = tasksResponse as unknown as Record<string, unknown>;
@@ -80,13 +77,11 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
     );
   }
 
-  // Safely cast project to our defined UI interface to avoid 'any'
   const safeProject = project as unknown as SafeProjectData;
   const totalContributors = (safeProject.members?.length || 0) + (safeProject.owner ? 1 : 0);
   const isOwner = currentUser?.id === safeProject.owner?.id;
   return (
     <div className={styles.pageWrapper}>
-      {/* Main Header */}
       <div className={styles.topBar}>
         <Link href="/projects" className={styles.backBtn}>
           ←
@@ -120,15 +115,12 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
           />
         </div>
       </div>
-
-      {/* Dynamic Contributors Bar */}
       <div className={styles.contributorsBar}>
         <div className={styles.contributorsLabel}>
           Contributeurs <span>{totalContributors} {totalContributors > 1 ? 'personnes' : 'personne'}</span>
         </div>
 
         <div className={styles.contributorsList}>
-          {/* Owner Tag */}
           {safeProject.owner && (
             <div className={styles.contributorItem}>
               <div className={`${styles.avatarCircle} ${styles.ownerAvatar}`}>
@@ -137,8 +129,6 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
               <div className={`${styles.rolePill} ${styles.ownerPill}`}>Propriétaire</div>
             </div>
           )}
-
-          {/* Members Tags - TypeScript infers 'member' automatically from SafeProjectData */}
           {safeProject.members?.map((member) => (
             <div key={member.id} className={styles.contributorItem}>
               <div className={`${styles.avatarCircle} ${styles.memberAvatar}`}>
@@ -151,32 +141,12 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
           ))}
         </div>
       </div>
-
-    {/* Tasks Area (La grande Card blanche) */}
       <div className={styles.tasksSection}>
-        
-        <TaskToolbar />
-
-        {/* Tasks list (Maintenant à L'INTÉRIEUR de la Card) */}
-        <div style={{ borderTop: '1px solid #F5F5F5', paddingTop: '24px', marginTop: '24px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {tasks.length > 0 ? (
-              tasks.map((task) => (
-                <TaskListItem
-                  key={(task as unknown as { id: string }).id}
-                  task={task as never}
-                  currentUser={safeProject.owner as never}
-                />
-              ))
-            ) : (
-              <div style={{ textAlign: 'center', color: '#888', padding: '40px 0' }}>
-                Aucune tâche n&apos;a encore été créée pour ce projet.
-              </div>
-            )}
-          </div>
-        </div>
-        
-      </div> 
+        <TaskSection
+          tasks={tasks as never[]}
+          currentUser={safeProject.owner as never}
+        />
+      </div>
     </div>
   );
 }

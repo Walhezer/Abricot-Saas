@@ -3,10 +3,15 @@
 import ListIcon from '@/components/ui/ListIcon';
 import CalendarIcon from '@/components/ui/CalendarIcon';
 import SearchBar from '@/components/ui/SearchBar';
-import ChevronIcon from '@/components/ui/ChevronIcon';
+import StatusDropdown from '../ui/StatusDropdown';
 import styles from './TaskToolbar.module.css';
 
-export default function TaskToolbar() {
+interface TaskToolbarProps {
+    onFilterChange?: (status: string) => void;
+    onSearchChange?: (query: string) => void;
+}
+
+export default function TaskToolbar({ onFilterChange, onSearchChange }: TaskToolbarProps) {
     return (
         <div className={styles.toolbar}>
             <div>
@@ -25,13 +30,15 @@ export default function TaskToolbar() {
                         <span>Calendrier</span>
                     </button>
                 </div>
+                <StatusDropdown 
+                    onStatusChange={(status) => onFilterChange && onFilterChange(status)} 
+                />
 
-                <button className={styles.filterSelect}>
-                    <span>Statut</span>
-                    <ChevronIcon />
-                </button>
                 <div className={styles.searchWrapper}>
-                    <SearchBar placeholder="Rechercher une tâche..." />
+                    <SearchBar 
+                        placeholder="Rechercher une tâche..." 
+                        onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
+                    />
                 </div>
             </div>
         </div>

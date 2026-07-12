@@ -1,0 +1,63 @@
+.filterWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.chevronOpen {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+.filterSelect {
+    display: flex;
+    align-items: center;
+    width: 140px;
+    justify-content: space-between;
+    height: 63px; 
+    box-sizing: border-box;
+    padding: 0 16px; 
+    background-color: white; 
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 14px;
+    color: rgba(107, 114, 128, 1);
+    cursor: pointer;
+}
+.filterSelect svg {
+  width: 16px;
+  height: 8px;
+  transform: rotate(180deg); 
+  transition: transform 0.2s ease-in-out; 
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 8px); 
+    right: 0;
+    background-color: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 8px;
+    min-width: 150px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 50; 
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dropdownMenu button {
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: rgba(107, 114, 128, 1);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdownMenu button:hover {
+    background-color: #F3F4F6;
+}
