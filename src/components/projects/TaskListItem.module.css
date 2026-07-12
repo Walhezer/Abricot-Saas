@@ -36,6 +36,8 @@
   border-radius: 12px;
   font-size: 12px;
   font-weight: 500;
+  white-space: nowrap; 
+  flex-shrink: 0;     
 }
 
 .statusTodo { background: #FEE2E2; color: #EF4444; }
@@ -50,6 +52,7 @@
   padding: 4px 8px;
   cursor: pointer;
   color: #888;
+  flex-shrink: 0;    
 }
 
 .description {
@@ -64,6 +67,13 @@
   gap: 12px;
 }
 
+.assignees {
+  display: flex;
+  align-items: flex-start; 
+  font-size: 13px;
+  color: #666;
+}
+
 .dueDate, .assignees {
   display: flex;
   align-items: center;
@@ -73,6 +83,8 @@
 
 .metaLabel {
   margin-right: 8px;
+  white-space: nowrap; 
+  margin-top: 4px;    
 }
 
 .metaValue {
@@ -83,14 +95,17 @@
 .assigneeList {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;  
 }
 
 .assigneePill {
   display: flex;
   align-items: center;
   background: #F3F4F6;
-  padding: 2px 8px 2px 2px;
+  padding: 2px 10px 2px 2px; 
   border-radius: 16px;
+  white-space: nowrap; 
+  flex-shrink: 0;    
 }
 
 .avatar {
@@ -180,7 +195,6 @@
   color: #1A1A1A;
 }
 
-/* Add Comment Input */
 .addCommentArea {
   display: flex;
   gap: 12px;

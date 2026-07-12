@@ -18,6 +18,7 @@
   margin: 0 auto;
   padding: 0 100px;
   box-sizing: border-box;
+  gap: 32px;
 }
 
 .headerLeft {
@@ -74,6 +75,17 @@
   justify-content: center;
   font-weight: bold;
   font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+  .headerContent {
+    padding: 0 40px; 
+  }
+
+  .navLink {
+    width: auto; 
+    padding: 0 24px; 
+  }
 }
 
 @media (max-width: 768px) {

@@ -116,6 +116,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-wrap: wrap; 
 }
 
 .contributorItem {
@@ -160,47 +161,45 @@
   margin-top: 24px; 
 }
 
-/* =========================================
-   📱 RESPONSIVE MOBILE - PROJET UNIQUE
-   ========================================= */
 @media (max-width: 768px) {
-  
-  /* 1. L'espace global de la page */
   .pageWrapper {
-    padding: 0 16px; /* On enlève les 100px de marge PC */
+    padding: 0 16px; 
     margin-top: 30px;
     padding-bottom: 60px;
   }
 
-  /* 2. L'en-tête (Titre et boutons) */
   .topBar {
-    flex-wrap: wrap; /* Autorise les boutons d'action à passer en dessous du titre */
+    flex-wrap: wrap;
     gap: 16px;
   }
 
-  .actionButtons {
-    width: 100%; /* Force les boutons à prendre toute la ligne du bas */
+.actionButtons {
+    width: 100%;
+    margin-top: 12px; 
+    padding-left: 60px; 
+    
+    display: flex;
+    justify-content: flex-start; 
+    gap: 12px;
   }
 
   .createTaskBtn, .iaBtn {
-    flex: 1; /* Les deux boutons se partagent l'espace 50/50 */
-    justify-content: center;
+    flex: none; 
+    width: auto; 
   }
 
-  /* 3. La barre des contributeurs */
   .contributorsBar {
-    flex-direction: column; /* On passe le label et la liste en colonne */
+    flex-direction: column; 
     align-items: flex-start;
-    padding: 20px 16px; /* On réduit l'énorme padding de 50px */
+    padding: 20px 16px; 
     gap: 16px;
   }
 
   .contributorsList {
-    flex-wrap: wrap; /* 👈 LE SECRET : Si l'équipe est grande, les bulles iront à la ligne au lieu de déborder ! */
+    flex-wrap: wrap; 
   }
 
-  /* 4. La grande zone blanche des tâches */
   .tasksSection {
-    padding: 24px 16px; /* On réduit le padding interne pour gagner de la place */
+    padding: 24px 16px; 
   }
 }

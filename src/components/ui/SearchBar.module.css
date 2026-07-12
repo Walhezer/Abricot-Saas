@@ -29,3 +29,13 @@
     font-size: 14px;
     outline: none;
 }
+
+@media (max-width: 768px) {
+  .searchContainer {
+    width: 100%; 
+  }
+
+  .searchInput {
+    width: 100%; 
+  }
+}
