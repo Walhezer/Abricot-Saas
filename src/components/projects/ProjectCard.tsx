@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './ProjectCard.module.css';
-import { Project } from '@/types/dashboard'; // À adapter selon le chemin de ton fichier de types
+import TeamIcon from '@/components/ui/TeamIcon';
+import { Project } from '@/types/dashboard';
 import { getInitials } from '@/utils/string';
 
 interface ProjectCardProps {
@@ -48,7 +49,9 @@ export default function ProjectCard({
       {/* --- Team Section --- */}
       <div className={styles.teamContainer}>
         <div className={styles.teamHeader}>
-          <span>👥</span>
+          <span className={styles.TeamIcon}>
+            <TeamIcon />
+          </span>
           <span>Équipe ({teamSize})</span>
         </div>
 

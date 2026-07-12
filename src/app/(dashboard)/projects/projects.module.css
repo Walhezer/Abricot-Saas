@@ -50,7 +50,42 @@
 
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 18px 14px; 
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px; 
   margin-top: 32px;
+}
+
+@media (max-width: 1366px) {
+  .pageWrapper {
+    padding: 0 40px; 
+  }
+}
+
+@media (max-width: 768px) {
+  .pageWrapper {
+    padding: 0 16px; 
+    margin-top: 40px; 
+    padding-bottom: 60px;
+  }
+
+  .pageHeader {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    max-width: 450px;
+    margin: 0 auto 24px auto; 
+  }
+
+  .createProjectBtn {
+    width: auto; 
+    padding: 0 16px; 
+    height: 44px; 
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr; 
+    justify-items: center;
+    gap: 16px;
+  }
 }
