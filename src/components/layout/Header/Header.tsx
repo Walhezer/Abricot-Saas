@@ -9,6 +9,7 @@ import FolderIcon from '@/components/ui/FolderIcon';
 
 export default function Header() {
   const pathname = usePathname();
+  const isAccountPage = pathname === '/account';
 
   return (
     <header className={styles.header}>
@@ -43,7 +44,9 @@ export default function Header() {
 
         <div className={styles.headerRight}>
           <Link href="/account" style={{ textDecoration: 'none' }}>
-            <div className={styles.avatar}>AD</div>
+            <div className={`${styles.avatar} ${isAccountPage ? styles.avatarOrange : ''}`}>
+              AD
+            </div>
           </Link>
         </div>
       </div>

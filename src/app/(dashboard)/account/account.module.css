@@ -8,16 +8,6 @@
     padding: 48px 24px;
 }
 
-.account.subtitle {
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: rgba(107, 114, 128, 1)
-}
-
 .card {
     background-color: #FFFFFF;
     border: 1px solid #E5E7EB;
@@ -28,93 +18,8 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.header {
-    margin-bottom: 32px;
-}
-
-.title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #111827;
-    margin: 0 0 4px 0;
-}
-
-.subtitle {
-    font-size: 14px;
-    color: #6B7280;
-    margin: 0;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.formGroup label {
-    font-size: 13px;
-    font-weight: 500;
-    color: #374151;
-}
-
-.input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #D1D5DB;
-    border-radius: 6px;
-    color: rgba(107, 114, 128, 1);
-    outline: none;
-    transition: border-color 0.2s;
-    font-family: Inter;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0%;
-}
-
-.input:focus {
-    border-color: #9CA3AF;
-}
-
-.submitBtn {
-    background-color: #1F2937;
-    color: #FFFFFF;
-    border: none;
-    font-size: 16px;
-    font-weight: 400;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background-color 0.2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 242px;
-    height: 50px;
-    border-radius: 10px;
-    padding: 13px 74px;
-    gap: 10px;
-    opacity: 1;
-    white-space: nowrap;
-}
-
-.submitBtn:hover {
-    background-color: #374151;
-}
-
 @media (max-width: 768px) {
-  .card {
-    padding: 32px 24px; 
-  }
-
-  .submitBtn {
-    width: 100%; 
-    padding: 0 16px; 
-  }
+    .card {
+        padding: 32px 24px; 
+    }
 }
