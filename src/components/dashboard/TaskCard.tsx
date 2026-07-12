@@ -32,7 +32,7 @@ export default function TaskCard({ task }: TaskCardProps) {
   };
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${styles.layoutList}`}>
       <div className={styles.cardLeft}>
         <div className={styles.titleGroup}>
           <h4 className={styles.title}>{task.title}</h4>
@@ -56,6 +56,7 @@ export default function TaskCard({ task }: TaskCardProps) {
           </span>
         </div>
       </div>
+      
       <div className={styles.cardRight}>
         <span className={`${styles.badge} ${getStatusBadgeClass(task.status)}`}>
           {getStatusLabel(task.status)}
@@ -68,7 +69,6 @@ export default function TaskCard({ task }: TaskCardProps) {
           Voir
         </Link>
       </div>
-
     </article>
   );
 }

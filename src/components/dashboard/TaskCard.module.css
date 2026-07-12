@@ -127,3 +127,40 @@
   justify-content: space-between; 
   align-items: center; 
 }
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column; 
+    padding: 16px; 
+    gap: 20px; 
+    align-items: stretch; 
+  }
+
+  .cardLeft {
+    width: 100%;
+  }
+
+  .meta {
+    flex-wrap: wrap; 
+  }
+
+.cardRight {
+    width: 100%;
+    min-width: 0; 
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box; 
+    
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-top: 16px; 
+  }
+  
+  .actionButton {
+    flex-shrink: 1; 
+    max-width: 50%; 
+    text-align: center;
+  }
+}

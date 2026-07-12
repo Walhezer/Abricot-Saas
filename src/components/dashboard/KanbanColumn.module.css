@@ -2,12 +2,12 @@
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid #f0f0f0;
   border-radius: 12px;
-  padding: 16px;
+  padding: 40px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 41px;
   min-width: 320px;
-  flex: 1; 
+  flex: 0 0 419px;
 }
 
 .columnHeader {
@@ -37,4 +37,16 @@
   display: flex;
   flex-direction: column;
   gap: 12px; 
+}
+
+@media (max-width: 768px) {
+  .column {
+    flex: none; 
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box; 
+    
+    padding: 24px 16px; 
+  }
 }

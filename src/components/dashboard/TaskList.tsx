@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { AssignedTask } from '@/types/dashboard';
 import SearchBar from '@/components/ui/SearchBar';
-import TaskCard from './TaskCard'; // Import de ton composant existant
+import TaskCard from './TaskCard'; 
 import styles from './TaskList.module.css';
 
 interface TaskListProps {

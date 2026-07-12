@@ -1,0 +1,108 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid rgb(240, 240, 240);
+  border-radius: 10px;
+  padding: 25px 40px; 
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px;
+  min-height: 229px; 
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.description {
+  margin: 0 0 16px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap; 
+  margin-bottom: 32px; 
+  font-size: 13px;
+  color: #888;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.truncate {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer {
+  margin-top: auto; 
+}
+
+.actionButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 121px; 
+  background-color: rgba(31, 31, 31, 1);
+  color: #ffffff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.badgeTodo {
+  background-color: #ffeaea;
+  color: #ff6b6b;
+}
+
+.badgeInProgress {
+  background-color: #fff4e6;
+  color: #ffa94d;
+}
+
+.badgeDone {
+  background-color: #eafbf1;
+  color: #38bdf8; 
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 16px; 
+    min-height: auto;
+  }
+
+  .meta {
+    flex-wrap: wrap; 
+  }
+}

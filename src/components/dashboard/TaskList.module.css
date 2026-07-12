@@ -163,3 +163,30 @@
   background-color: #E8F5E9;
   color: #4CAF50;
 }
+
+@media (max-width: 768px) {
+  .tasksHeader {
+    flex-direction: column; 
+    align-items: stretch; 
+    gap: 16px; 
+    margin-bottom: 24px;
+  }
+
+  .headerTitles {
+    text-align: left;
+  }
+
+.listContainer {
+    padding: 0; 
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%; 
+    padding: 0;
+    margin: 0;
+  }
+}

@@ -1,5 +1,5 @@
 import { AssignedTask } from '@/types/dashboard';
-import TaskCard from './TaskCard';
+import TaskCardKanban from './TaskCardKanban';
 import styles from './KanbanColumn.module.css';
 
 interface KanbanColumnProps {
@@ -11,14 +11,13 @@ interface KanbanColumnProps {
 export default function KanbanColumn({ title, count, tasks }: KanbanColumnProps) {
   return (
     <div className={styles.column}>
-      {/* Column header (Title + Count badge) */}
       <div className={styles.columnHeader}>
         <h3 className={styles.title}>{title}</h3>
         <span className={styles.countBadge}>{count}</span>
       </div>
       <div className={styles.cardsContainer}>
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCardKanban key={task.id} task={task} />
         ))}
       </div>
     </div>
