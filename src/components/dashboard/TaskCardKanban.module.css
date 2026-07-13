@@ -39,7 +39,7 @@
   flex-wrap: wrap; 
   margin-bottom: 32px; 
   font-size: 13px;
-  color: #888;
+  color: #646464;
 }
 
 .metaItem {
@@ -83,12 +83,12 @@
 
 .badgeTodo {
   background-color: #ffeaea;
-  color: #ff6b6b;
+  color: #DB0000;
 }
 
 .badgeInProgress {
   background-color: #fff4e6;
-  color: #ffa94d;
+  color: #855400;
 }
 
 .badgeDone {

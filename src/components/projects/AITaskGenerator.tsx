@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './AITaskGenerator.module.css';
 import SparklesIcon from '@/components/ui/SparklesIcon';
 import TrashIcon from '@/components/ui/TrashIcon';
@@ -15,6 +15,25 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
   const [step, setStep] = useState<'input' | 'results'>('input');
   const [prompt, setPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = 'ai-task-generator-title';
+
+  // Gérer la fermeture avec la touche Echap
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  // Mettre le focus sur la modale à l'ouverture
+  useEffect(() => {
+    dialogRef.current?.focus();
+  }, []);
+
   const handleGenerateTasks = () => {
     if (!prompt.trim()) return;
 
@@ -33,7 +52,14 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      ref={dialogRef}
+      className={styles.container}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      tabIndex={-1}
+    >
 
       {/* --- HEADER --- */}
       <div className={styles.header}>
@@ -41,7 +67,7 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
           <div className={styles.sparkleIcon}>
             <SparklesIcon />
           </div>
-          <h2 className={styles.title}>{step === 'input' ? 'Créer une tâche' : 'Vos tâches...'}</h2>
+          <h2 id={titleId} className={styles.title}>{step === 'input' ? 'Créer une tâche' : 'Vos tâches...'}</h2>
         </div>
       </div>
       {step === 'input' && <div className={styles.spacer}></div>}
@@ -54,14 +80,14 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
 
               <div className={styles.cardActions}>
                 <button type="button" className={styles.actionBtn}>
-                  <span className={styles.actionIcon}>
+                  <span className={styles.actionIcon} aria-hidden="true">
                     <TrashIcon />
                   </span>{' '}
                   Supprimer
                 </button>
                 <span className={styles.separator}>|</span>
                 <button type="button" className={styles.actionBtn}>
-                  <span className={styles.actionIcon}>
+                  <span className={styles.actionIcon} aria-hidden="true">
                     <PencilIcon />
                   </span>{' '}
                   Modifier
@@ -80,6 +106,7 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
         <input
           type="text"
           placeholder="Décrivez les tâches que vous souhaitez ajouter..."
+          aria-label="Description des tâches à générer"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -89,7 +116,14 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
         <IAButton
           onClick={handleGenerateTasks}
           isLoading={isLoading}
+          aria-label="Générer les tâches par Intelligence Artificielle"
         />
+      </div>
+
+      {/* Région live pour les annonces aux lecteurs d'écran, nécessite une classe "sr-only" pour être masquée visuellement */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {isLoading && "Génération des tâches en cours..."}
+        {step === 'results' && !isLoading && "Les tâches ont été générées."}
       </div>
 
     </div>

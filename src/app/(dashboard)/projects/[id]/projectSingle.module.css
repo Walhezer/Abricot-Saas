@@ -88,7 +88,7 @@
 }
 
 .iaBtn {
-  background-color: #D3590B;
+  background-color: #C2510A;
   color: white;
   height: 40px;
   padding: 0 16px;
@@ -128,7 +128,7 @@
 
 .contributorsLabel span {
   font-weight: 400;
-  color: #888;
+  color: #646464;
   margin-left: 8px;
 }
 
@@ -165,7 +165,7 @@
 
 .ownerAvatar, .ownerPill {
   background-color: #FFE6DC;
-  color: #D3590B;
+  color: #923d08;
 }
 
 .memberAvatar, .memberPill {

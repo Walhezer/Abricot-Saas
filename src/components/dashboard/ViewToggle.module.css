@@ -24,12 +24,12 @@
 
 .active {
   background-color: rgba(255, 232, 217, 1); 
-  color: rgba(211, 89, 11, 1); 
+  color: rgb(173, 75, 13); 
 }
 
 .inactive {
   background-color: rgba(255, 255, 255, 1); 
-  color: rgba(211, 89, 11, 1); 
+  color: rgb(173, 75, 13); 
 }
 
 .inactive:hover {

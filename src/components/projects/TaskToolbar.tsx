@@ -14,9 +14,9 @@ interface TaskToolbarProps {
 export default function TaskToolbar({ onFilterChange, onSearchChange }: TaskToolbarProps) {
     return (
         <div className={styles.toolbar}>
-            <div>
-                <h2 style={{ fontSize: '18px', margin: '0 0 4px 0', color: '#1A1A1A' }}>Tâches</h2>
-                <p style={{ fontSize: '13px', color: '#888', margin: '0' }}>Par ordre de priorité</p>
+            <div className={styles.headerTitles}>
+                <h2 className={styles.title}>Tâches</h2>
+                <p className={styles.subtitle}>Par ordre de priorité</p>
             </div>
 
             <div className={styles.toolbarRight}>
@@ -31,14 +31,14 @@ export default function TaskToolbar({ onFilterChange, onSearchChange }: TaskTool
                     </button>
                 </div>
                 <div className={styles.dropdownWrapper}>
-                <StatusDropdown 
-                    onStatusChange={(status) => onFilterChange && onFilterChange(status)} 
-                />
+                    <StatusDropdown
+                        onStatusChange={(status) => onFilterChange && onFilterChange(status)}
+                    />
                 </div>
 
                 <div className={styles.searchWrapper}>
-                    <SearchBar 
-                        placeholder="Rechercher une tâche..." 
+                    <SearchBar
+                        placeholder="Rechercher une tâche..."
                         onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
                     />
                 </div>

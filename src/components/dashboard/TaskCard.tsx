@@ -35,7 +35,7 @@ export default function TaskCard({ task }: TaskCardProps) {
     <article className={`${styles.card} ${styles.layoutList}`}>
       <div className={styles.cardLeft}>
         <div className={styles.titleGroup}>
-          <h4 className={styles.title}>{task.title}</h4>
+          <h3 className={styles.title}>{task.title}</h3>
           <p className={styles.description}>{task.description}</p>
         </div>
 

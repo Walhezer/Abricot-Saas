@@ -40,9 +40,9 @@
   flex-shrink: 0;     
 }
 
-.statusTodo { background: #FEE2E2; color: #EF4444; }
-.statusInProgress { background: #FEF3C7; color: #F59E0B; }
-.statusDone { background: #D1FAE5; color: #10B981; }
+.statusTodo { background: #ffeaea; color: #DB0000; }
+.statusInProgress { background: #FEF3C7; color: #855400; }
+.statusDone { background: #D1FAE5; color: #1F7A5C; }
 .statusDefault { background: #F3F4F6; color: #6B7280; }
 
 .moreBtn {
@@ -51,7 +51,7 @@
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
-  color: #888;
+  color: #646464;
   flex-shrink: 0;    
 }
 
@@ -70,7 +70,7 @@
 .assignees {
   display: flex;
   align-items: flex-start; 
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
 }
 

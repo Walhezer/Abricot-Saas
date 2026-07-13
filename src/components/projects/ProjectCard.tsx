@@ -22,7 +22,7 @@ export default function ProjectCard({
   return (
     <Link href={`/projects/${project.id}`} className={styles.projectCard}>
       {/* Using `project.name` instead of `title` to match the database */}
-      <h3 className={styles.cardTitle}>{project.name}</h3>
+      <h2 className={styles.cardTitle}>{project.name}</h2>
       <p className={styles.cardDescription}>{project.description}</p>
 
       <div className={styles.spacer}></div>

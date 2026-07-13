@@ -47,7 +47,7 @@
 
 .description {
   font-size: 12px;
-  color: #888888;
+  color: #646464;
   margin: 0;
   line-height: 1.4;
   display: -webkit-box;
@@ -68,12 +68,12 @@
 
 .badgeTodo {
   background-color: #ffeaea;
-  color: #ff6b6b;
+  color: #DB0000;
 }
 
 .badgeInProgress {
-  background-color: #fff4e6;
-  color: #ffa94d;
+  background-color: #f3d5ae;
+  color: #855400;
 }
 
 .badgeDone {
@@ -86,7 +86,7 @@
   align-items: center;
   gap: 8px;
   font-size: 11px;
-  color: #888888;
+  color: #646464;
   flex-wrap: wrap;
 }
 
@@ -97,7 +97,7 @@
 }
 
 .separator {
-  color: #e0e0e0;
+  color: #646464;
 }
 
 .actionButton {

@@ -12,7 +12,7 @@ export default function KanbanColumn({ title, count, tasks }: KanbanColumnProps)
   return (
     <div className={styles.column}>
       <div className={styles.columnHeader}>
-        <h3 className={styles.title}>{title}</h3>
+        <h2 className={styles.title}>{title}</h2>
         <span className={styles.countBadge}>{count}</span>
       </div>
       <div className={styles.cardsContainer}>

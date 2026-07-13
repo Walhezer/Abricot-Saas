@@ -22,11 +22,13 @@ export default function AccountForm({ initialData }: AccountFormProps) {
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError('');
         setSuccess('');
+        setIsSubmitting(true);
         try {
             await updateAccountInfo({
                 name: `${firstName} ${lastName}`.trim(),
@@ -43,6 +45,8 @@ export default function AccountForm({ initialData }: AccountFormProps) {
                 message = err;
             }
             setError(message);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -54,8 +58,8 @@ export default function AccountForm({ initialData }: AccountFormProps) {
                 <p className={styles.subtitle}>{firstName} {lastName}</p>
             </div>
 
-            {error && <div style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px' }}>{error}</div>}
-            {success && <div style={{ color: '#16A34A', marginBottom: '16px', fontSize: '14px' }}>{success}</div>}
+            {error && <div role="alert" style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px' }}>{error}</div>}
+            {success && <div role="alert" style={{ color: '#16A34A', marginBottom: '16px', fontSize: '14px' }}>{success}</div>}
 
             <form className={styles.form} onSubmit={handleSubmit}>
 
@@ -107,8 +111,8 @@ export default function AccountForm({ initialData }: AccountFormProps) {
                     />
                 </div>
 
-                <button type="submit" className={styles.submitBtn}>
-                    Modifier les informations
+                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                    {isSubmitting ? 'Modification en cours...' : 'Modifier les informations'}
                 </button>
 
             </form>

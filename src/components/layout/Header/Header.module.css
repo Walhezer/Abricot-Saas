@@ -26,6 +26,11 @@
   align-items: center;
 }
 
+.logo {
+  color: #be500c !important;
+  fill: #be500c !important;
+}
+
 .navigation {
   display: flex;
   gap: 16px;
@@ -47,7 +52,7 @@
 
   transition: all 0.2s ease-in-out;
   background-color: transparent;
-  color: #D3590B;
+  color: #be500c;
 }
 
 .navLink svg {
@@ -67,14 +72,19 @@
 .avatar {
   width: 65px;
   height: 65px;
-  background-color: #FFE6DC;
-  color: #D35400;
+  background-color: rgba(255, 232, 217, 1);
+  color: #1A1A1A;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 14px;
+}
+
+.avatarOrange {
+  background-color: #BE500C;
+  color: #FFFFFF;
 }
 
 @media (max-width: 1200px) {
@@ -88,10 +98,6 @@
   }
 }
 
-.avatarOrange {
-  background-color: #D95F18;
-  color: #FFFFFF;
-}
 
 @media (max-width: 768px) {
 

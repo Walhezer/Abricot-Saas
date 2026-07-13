@@ -1,11 +1,11 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.css';
 import DashboardIcon from '@/components/ui/DashboardIcon';
 import FolderIcon from '@/components/ui/FolderIcon';
+import LogoAbricot from '@/components/ui/LogoAbricot';
 
 export default function Header() {
   const pathname = usePathname();
@@ -15,15 +15,8 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.headerContent}>
         <div className={styles.headerLeft}>
-          <Image
-            src="/images/logo-abricot.svg"
-            alt="Logo Abricot"
-            width={120}
-            height={35}
-            priority
-          />
+            <LogoAbricot className={styles.logo} />
         </div>
-
         <nav className={styles.navigation}>
           <Link
             href="/dashboard"
@@ -43,7 +36,7 @@ export default function Header() {
         </nav>
 
         <div className={styles.headerRight}>
-          <Link href="/account" style={{ textDecoration: 'none' }}>
+          <Link href="/account" style={{ textDecoration: 'none' }} aria-label="Accéder à mon profil">
             <div className={`${styles.avatar} ${isAccountPage ? styles.avatarOrange : ''}`}>
               AD
             </div>

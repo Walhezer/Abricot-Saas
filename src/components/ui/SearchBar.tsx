@@ -17,6 +17,7 @@ export default function SearchBar({
       <input
         type="text"
         placeholder={placeholder}
+        aria-label={placeholder}
         value={value}
         onChange={onChange}
         className={styles.searchInput}

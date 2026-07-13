@@ -36,7 +36,7 @@ export default function TaskCardKanban({ task }: TaskCardKanbanProps) {
     <article className={styles.card}>
       {/* HEADER : Titre + Badge */}
       <div className={styles.header}>
-        <h4 className={styles.title}>{task.title}</h4>
+        <h3 className={styles.title}>{task.title}</h3>
         <span className={`${styles.badge} ${getStatusBadgeClass(task.status)}`}>
           {getStatusLabel(task.status)}
         </span>
