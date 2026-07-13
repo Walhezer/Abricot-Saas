@@ -89,6 +89,13 @@
   gap: 6px;
 }
 
+.iaBtn svg {
+    width: 21px !important;
+    height: 21px !important;
+    color: white; 
+    flex-shrink: 0; 
+}
+
 .contributorsBar {
   display: flex;
   justify-content: space-between;

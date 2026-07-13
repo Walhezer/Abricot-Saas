@@ -1,0 +1,177 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 450px; 
+}
+
+.header {
+  padding: 0;
+}
+
+.icon {
+  color: #D3590B;
+  width: 28px;
+  height: 28px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin: 0;
+  line-height: 1; 
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  gap: 12px;
+}
+
+.sparkleIcon {
+  color: #D3590B;
+  width: 24px; 
+  height: 24px;
+  display: flex;
+}
+
+.spacer {
+  flex: 1; 
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background-color: #F8F9FA; 
+  border-radius: 50px;
+  padding: 8px 8px 8px 24px;
+  margin: 0; 
+  align-self: stretch; 
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #1A1A1A;
+}
+
+.input::placeholder {
+  color: #9CA3AF;
+}
+
+.submitBtn {
+  background-color: #D3590B;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px; 
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0; 
+}
+
+.submitBtn:hover {
+  opacity: 0.9;
+}
+
+.btnSparkleIcon {
+  width: 18px; 
+  height: 18px;
+  color: white; 
+}
+
+.resultsContainer {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  gap: 16px; 
+  overflow-y: auto; 
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding-right: 8px; 
+}
+
+.taskCard {
+  border: 1px solid #E5E7EB; 
+  border-radius: 12px;
+  padding: 16px 20px;
+  background-color: #FFFFFF;
+}
+
+.taskCard h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.taskCard p {
+  margin: 0 0 16px 0;
+  color: #6B7280; 
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #6B7280;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.actionBtn:hover {
+  color: #1A1A1A; 
+}
+
+.actionIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.separator {
+  color: #E5E7EB;
+  font-size: 12px;
+}
+
+.addTasksAction {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.blackBtn {
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.blackBtn:hover {
+  opacity: 0.8;
+}

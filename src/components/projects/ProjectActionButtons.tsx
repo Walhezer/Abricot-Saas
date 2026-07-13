@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Modal from '@/components/ui/Modal';
 import CreateTaskForm from './CreateTaskForm';
+import AITaskGenerator from './AITaskGenerator';
+import SparklesIcon from '../ui/SparklesIcon';
 
 interface ProjectActionButtonsProps {
     projectId: string;
@@ -11,7 +13,8 @@ interface ProjectActionButtonsProps {
 }
 
 export default function ProjectActionButtons({ projectId, btnClassName, iaBtnClassName }: ProjectActionButtonsProps) {
-    const [activeModal, setActiveModal] = useState<'create_task' | null>(null);
+
+    const [activeModal, setActiveModal] = useState<'create_task' | 'ai_task' | null>(null);
 
     return (
         <>
@@ -22,11 +25,13 @@ export default function ProjectActionButtons({ projectId, btnClassName, iaBtnCla
             >
                 Créer une tâche
             </button>
-
-            <button type="button" className={iaBtnClassName}>
-                 IA
+            <button
+                type="button"
+                className={iaBtnClassName}
+                onClick={() => setActiveModal('ai_task')}
+            >
+                <SparklesIcon /> IA
             </button>
-
             <Modal
                 isOpen={activeModal === 'create_task'}
                 onClose={() => setActiveModal(null)}
@@ -36,6 +41,12 @@ export default function ProjectActionButtons({ projectId, btnClassName, iaBtnCla
                     projectId={projectId}
                     onClose={() => setActiveModal(null)}
                 />
+            </Modal>
+            <Modal
+                isOpen={activeModal === 'ai_task'}
+                onClose={() => setActiveModal(null)}
+            >
+                <AITaskGenerator onClose={() => setActiveModal(null)} />
             </Modal>
         </>
     );

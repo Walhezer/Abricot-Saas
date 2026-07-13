@@ -1,0 +1,46 @@
+.iaButton {
+  background-color: #D3590B;
+  border: none;
+  border-radius: 50%;
+  width: 24px; 
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0; 
+}
+
+.icon {
+  width: 8px;
+  height: 8px;
+  color: #FFFFFF;
+  transition: color 0.2s ease;
+}
+
+.iaButton svg {
+  width: 8px !important;
+  height: 8px !important;
+  color: white; 
+  transition: color 0.2s ease;
+}
+
+.iaButton:hover:not(:disabled) {
+  background-color: #FDE8D7; 
+}
+
+.iaButton:hover:not(:disabled) .icon {
+  color: rgba(211, 89, 11, 1);
+}
+
+.iaButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loadingText {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+}

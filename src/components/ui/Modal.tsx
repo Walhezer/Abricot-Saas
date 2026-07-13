@@ -7,9 +7,10 @@ import { createPortal } from 'react-dom';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string; // Rendu optionnel
+  title?: string; 
   children: React.ReactNode;
   variant?: 'default' | 'compact'; 
+  bodyClassName?: string;
 }
 
 function useIsHydrated() {
@@ -20,7 +21,7 @@ function useIsHydrated() {
   );
 }
 
-export default function Modal({ isOpen, onClose, title, children, variant = 'default' }: ModalProps) {
+export default function Modal({ isOpen, onClose, title, children, variant = 'default', bodyClassName = '' }: ModalProps) {
   const isHydrated = useIsHydrated();
   const isCompact = variant === 'compact';
 
@@ -55,7 +56,9 @@ export default function Modal({ isOpen, onClose, title, children, variant = 'def
             </button>
           </div>
         )}
-        <div className={isCompact ? styles.compactBody : styles.body}>{children}</div>
+        <div className={`${isCompact ? styles.compactBody : styles.body} ${bodyClassName}`}>
+          {children}
+        </div>
       </div>
     </div>,
     document.body
