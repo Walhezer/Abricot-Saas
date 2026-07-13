@@ -61,3 +61,13 @@
 .dropdownMenu button:hover {
     background-color: #F3F4F6;
 }
+
+@media (max-width: 768px) {
+  .statusDropdownContainer, 
+  .statusButton { 
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+  }
+}

@@ -30,9 +30,11 @@ export default function TaskToolbar({ onFilterChange, onSearchChange }: TaskTool
                         <span>Calendrier</span>
                     </button>
                 </div>
+                <div className={styles.dropdownWrapper}>
                 <StatusDropdown 
                     onStatusChange={(status) => onFilterChange && onFilterChange(status)} 
                 />
+                </div>
 
                 <div className={styles.searchWrapper}>
                     <SearchBar 

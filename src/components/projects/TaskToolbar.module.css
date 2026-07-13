@@ -52,6 +52,12 @@
     gap: 20px;
   }
 
+  .toolbar > div,
+  .toolbar input,
+  .toolbar button {
+    width: 100%;
+  }
+
   .toolbarRight {
     width: 100%;
     flex-direction: column; 
@@ -92,5 +98,15 @@
     width: 100% !important;
     max-width: none !important;
     box-sizing: border-box; 
+  }
+
+  .dropdownWrapper {
+    width: 100% !important;
+  }
+
+  .dropdownWrapper > div,
+  .dropdownWrapper button {
+    width: 100% !important;
+    box-sizing: border-box;
   }
 }

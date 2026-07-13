@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 94px;
   background: white;
 }
 
@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 94px;
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -65,8 +65,8 @@
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 65px;
+  height: 65px;
   background-color: #FFE6DC;
   color: #D35400;
   border-radius: 50%;
