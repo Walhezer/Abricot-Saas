@@ -6,6 +6,7 @@ import ProjectActionButtons from '@/components/projects/ProjectActionButtons';
 import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
 import { getAccountInfo } from '@/services/account.service';
 import TaskSection from '@/components/projects/TaskSection';
+import BackButton from '@/components/ui/BackButton';
 
 type Project = Awaited<ReturnType<typeof getProjectById>>;
 type AssignedTask = Awaited<ReturnType<typeof getTasksByProjectId>> extends (infer U)[] ? U : never;
@@ -83,30 +84,28 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.topBar}>
-        <Link href="/projects" className={styles.backBtn}>
-          ←
-        </Link>
-
-        <div className={styles.projectHeaderContent}>
-          <div className={styles.titleRow}>
-            <h1 className={styles.projectTitle}>{safeProject.name}</h1>
-            {isOwner && (
-              <EditProjectTrigger
-                projectId={projectId}
-                className={styles.modifyLink}
-                projectData={{
-                  title: safeProject.name,
-                  description: safeProject.description || '',
-                  contributors: "2_collabs"
-                }}
-              />
-            )}
+        <div className={styles.leftGroup}>
+          <BackButton href="/projects" />
+          <div className={styles.projectHeaderContent}>
+            <div className={styles.titleRow}>
+              <h1 className={styles.projectTitle}>{safeProject.name}</h1>
+              {isOwner && (
+                <EditProjectTrigger
+                  projectId={projectId}
+                  className={styles.modifyLink}
+                  projectData={{
+                    title: safeProject.name,
+                    description: safeProject.description || '',
+                    contributors: "2_collabs"
+                  }}
+                />
+              )}
+            </div>
+            <p className={styles.projectDescription}>
+              {safeProject.description}
+            </p>
           </div>
-          <p className={styles.projectDescription}>
-            {safeProject.description}
-          </p>
         </div>
-
         <div className={styles.actionButtons}>
           <ProjectActionButtons
             projectId={projectId}
@@ -114,7 +113,9 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
             iaBtnClassName={styles.iaBtn}
           />
         </div>
+
       </div>
+
       <div className={styles.contributorsBar}>
         <div className={styles.contributorsLabel}>
           Contributeurs <span>{totalContributors} {totalContributors > 1 ? 'personnes' : 'personne'}</span>

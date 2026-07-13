@@ -1,0 +1,26 @@
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 40px; 
+  height: 40px;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB; 
+  border-radius: 12px; 
+  color: #1A1A1A; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  text-decoration: none; 
+}
+
+.backBtn svg {
+  color: inherit;
+}
+
+.backBtn:hover {
+  border-color: #D3590B; 
+  color: #D3590B; 
+  box-shadow: 0 2px 4px rgba(211, 89, 11, 0.1); 
+}

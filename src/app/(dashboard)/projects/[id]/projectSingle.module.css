@@ -9,9 +9,15 @@
 
 .topBar {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 24px;
+  justify-content: space-between; 
+  align-items: flex-end; 
+  margin-bottom: 24px; 
+}
+
+.leftGroup {
+  display: flex;
+  align-items: flex-start; 
+  gap: 16px; 
 }
 
 .backBtn {
@@ -28,13 +34,19 @@
 }
 
 .projectHeaderContent {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
 }
 
 .titleRow {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.projectTitle, .projectDescription {
+  margin: 0; 
 }
 
 .projectTitle {
@@ -59,9 +71,10 @@
 
 .actionButtons {
   display: flex;
-  gap: 12px;
+  align-items: center; 
+  gap: 12px; 
+  flex-shrink: 0; 
 }
-
 .createTaskBtn {
   background-color: #1F1F1F;
   color: white;
