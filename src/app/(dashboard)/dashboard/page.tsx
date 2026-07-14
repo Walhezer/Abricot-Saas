@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { getAssignedTasks } from '@/services/dashboard.service';
 import { AssignedTask } from '@/types/dashboard';
 import TaskList from '@/components/dashboard/TaskList';
@@ -5,6 +6,10 @@ import KanbanView from '@/components/dashboard/KanbanView';
 import { ViewToggle } from '@/components/dashboard/ViewToggle';
 import CreateProjectButton from '@/components/projects/CreateProjectButton';
 import styles from './dashboard.module.css';
+
+export const metadata: Metadata = {
+  title: 'Tableau de bord',
+};
 
 export default async function DashboardPage({
   searchParams,

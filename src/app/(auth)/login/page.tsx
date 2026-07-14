@@ -1,11 +1,17 @@
 'use client';
 
+import { Metadata } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { loginWithCredentials } from '@/app/actions/auth';
 import styles from './login.module.css';
+
+export const metadata: Metadata = {
+  title: 'Connexion',
+  description: 'Connectez-vous à votre espace personnel pour retrouver votre tableau de bord et piloter vos projets.',
+};
 
 export default function LoginPage() {
   const router = useRouter();

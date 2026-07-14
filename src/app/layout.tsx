@@ -15,8 +15,11 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "L'Abricot - Gestion de projets",
-  description: "Application SaaS de gestion de tâches",
+  title: {
+    template: "%s | L'Abricot", 
+    default: "L'Abricot - Gestion de projets", 
+  },
+  description: "Application SaaS de gestion de tâches et de projets pour les équipes.",
 };
 
 export default function RootLayout({

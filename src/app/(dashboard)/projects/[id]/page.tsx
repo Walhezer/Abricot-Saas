@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import styles from './projectSingle.module.css';
 import { getProjectById, getTasksByProjectId } from '@/services/projects.service';
@@ -7,6 +8,10 @@ import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
 import { getAccountInfo } from '@/services/account.service';
 import TaskSection from '@/components/projects/TaskSection';
 import BackButton from '@/components/ui/BackButton';
+
+export const metadata: Metadata = {
+  title: 'Détails du projet',
+};
 
 type Project = Awaited<ReturnType<typeof getProjectById>>;
 type AssignedTask = Awaited<ReturnType<typeof getTasksByProjectId>> extends (infer U)[] ? U : never;

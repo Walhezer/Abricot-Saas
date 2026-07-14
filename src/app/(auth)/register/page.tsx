@@ -1,11 +1,17 @@
 'use client';
 
+import { Metadata } from 'next';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { registerWithCredentials } from '@/services/auth.service';
 import styles from './register.module.css';
+
+export const metadata: Metadata = {
+  title: 'Inscription',
+  description: 'Créez votre compte gratuitement et commencez à gérer vos projets efficacement.',
+};
 
 export default function RegisterPage() {
   const router = useRouter();

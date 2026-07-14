@@ -1,7 +1,11 @@
+import { Metadata } from 'next';
 import { getAccountInfo } from '@/services/account.service';
 import AccountForm from '@/components/account/AccountForm';
 import styles from './account.module.css';
 
+export const metadata: Metadata = {
+  title: 'Mon compte',
+};
 
 export default async function AccountPage() {
   const initialData = {

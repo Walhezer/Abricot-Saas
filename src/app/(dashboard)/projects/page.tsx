@@ -1,7 +1,12 @@
+import { Metadata } from 'next';
 import ProjectCard from '@/components/projects/ProjectCard';
 import styles from './projects.module.css';
 import CreateProjectButton from '@/components/projects/CreateProjectButton';
 import { getProjects, getTasksByProjectId } from '@/services/projects.service';
+
+export const metadata: Metadata = {
+  title: 'Mes Projets',
+};
 
 // Infer types directly from service return signatures
 type Project = Awaited<ReturnType<typeof getProjects>> extends (infer U)[] ? U : never;
