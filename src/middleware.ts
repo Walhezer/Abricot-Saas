@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   // Extract the requested path
   const { pathname } = request.nextUrl;
 
-// Handle root path redirection
+  // Handle root path redirection
   if (pathname === '/') {
     // Redirect to dashboard if authenticated, otherwise to login
     const redirectUrl = token ? '/dashboard' : '/login';
@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
 
   // Define route categories
   const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/register');
-  const isDashboardPage = pathname.startsWith('/dashboard') || pathname.startsWith('/kanban') || pathname.startsWith('/projects');
+  const isDashboardPage = pathname.startsWith('/dashboard') || pathname.startsWith('/kanban') || pathname.startsWith('/projects') || pathname.startsWith('/account');
 
   // Case 1: Redirect unauthenticated users away from protected routes
   if (!token && isDashboardPage) {
@@ -34,5 +34,5 @@ export function middleware(request: NextRequest) {
 
 // Configure paths where the proxy applies (excluding static assets for performance)
 export const config = {
-  matcher: ['/','/dashboard/:path*', '/kanban/:path*', '/projects/:path*', '/login', '/register'],
+  matcher: ['/','/dashboard/:path*', '/kanban/:path*', '/projects/:path*', '/account/:path*', '/login', '/register'],
 };
