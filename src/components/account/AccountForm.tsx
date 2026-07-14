@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { removeAuthToken } from '@/app/actions/auth'
 import styles from './AccountForm.module.css';
 import { updateAccountInfo } from '@/app/actions/account';
 
@@ -15,6 +17,7 @@ interface AccountFormProps {
 }
 
 export default function AccountForm({ initialData }: AccountFormProps) {
+    const router = useRouter();
     const [lastName, setLastName] = useState(initialData.lastName ?? '');
     const [firstName, setFirstName] = useState(initialData.firstName ?? '');
     const [email, setEmail] = useState(initialData.email ?? '');
@@ -50,9 +53,15 @@ export default function AccountForm({ initialData }: AccountFormProps) {
         }
     };
 
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        await removeAuthToken();
+        router.push('/login');
+        router.refresh();
+    };
+
     return (
         <>
-            {/* Le header reste ici pour que le prénom/nom se mettent à jour en temps réel */}
             <div className={styles.header}>
                 <h1 className={styles.title}>Mon compte</h1>
                 <p className={styles.subtitle}>{firstName} {lastName}</p>
@@ -110,10 +119,19 @@ export default function AccountForm({ initialData }: AccountFormProps) {
                         placeholder="••••••••••"
                     />
                 </div>
+                <div className={styles.actionsContainer}>
+                    <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                        {isSubmitting ? 'Modification en cours...' : 'Modifier les informations'}
+                    </button>
 
-                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-                    {isSubmitting ? 'Modification en cours...' : 'Modifier les informations'}
-                </button>
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className={styles.logoutBtn}
+                    >
+                        Se déconnecter
+                    </button>
+                </div>
 
             </form>
         </>
