@@ -1,29 +1,55 @@
 'use client';
 
-import { useState } from 'react';
-import styles from './FormModal.module.css'; 
-import ChevronIcon from '@/components/ui/ChevronIcon';
+import { useState } from 'react'; 
+import { useRouter } from 'next/navigation';
+import styles from './FormModal.module.css';
+import { createProject } from '@/app/actions/projects';
 
 interface CreateProjectFormProps {
   onClose: () => void;
 }
 
 export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
+  const router = useRouter();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [contributors, setContributors] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Nouveau projet à créer :", { title, description, contributors });
-    onClose();
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      await createProject({
+        title,
+        description,
+      });
+
+      router.refresh();
+      onClose();
+    } catch (err: unknown) {
+      console.error(err);
+      let errorMessage = "Erreur lors de la création du projet.";
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      }
+      setError(errorMessage);    
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid = title.trim() !== '' && description.trim() !== '';
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      
+
+      {error && <div style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px' }}>{error}</div>}
+
       <div className={styles.formGroup}>
         <label htmlFor="project-title">Titre*</label>
         <input
@@ -46,32 +72,13 @@ export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
         />
       </div>
 
-      <div className={styles.formGroup}>
-        <label htmlFor="project-contributors">Contributeurs</label>
-        <div className={styles.selectWrapper}>
-          <select 
-            id="project-contributors" 
-            value={contributors} 
-            onChange={(e) => setContributors(e.target.value)}
-            className={`${contributors === "" ? styles.placeholderSelect : ""} ${styles.customSelect}`}
-          >
-            <option value="" disabled>Choisir un ou plusieurs collaborateurs</option>
-            <option value="user1">Caroline Leroy</option>
-            <option value="user2">David Moreau</option>
-          </select>
-          <span className={styles.customChevron}>
-            <ChevronIcon />
-          </span>
-        </div>
-      </div>
-
       <div className={styles.actions}>
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={styles.submitBtn}
-          disabled={!isFormValid}
+          disabled={!isFormValid || isSubmitting}
         >
-          Ajouter un projet
+          {isSubmitting ? 'Création...' : 'Ajouter un projet'}
         </button>
       </div>
     </form>
