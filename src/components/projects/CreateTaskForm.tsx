@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createTask } from '@/app/actions/tasks';
 import styles from './FormModal.module.css';
 import CalendarIcon from '@/components/ui/CalendarIcon';
 import ChevronIcon from '@/components/ui/ChevronIcon';
@@ -11,22 +13,50 @@ interface CreateTaskFormProps {
 }
 
 export default function CreateTaskForm({ projectId, onClose }: CreateTaskFormProps) {
+    const router = useRouter();
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [assignedTo, setAssignedTo] = useState('');
     const [status, setStatus] = useState<'todo' | 'in_progress' | 'done'>('todo');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Nouvelle tâche à créer :", { title, description, dueDate, assignedTo, status, projectId });
-        onClose();
+        setIsSubmitting(true);
+        setError(null);
+
+        try {
+            const assigneeIdsArray = assignedTo ? [assignedTo] : [];
+
+            await createTask({
+                title,
+                description,
+                dueDate,
+                projectId,
+                assigneeIds: assigneeIdsArray
+            });
+            router.refresh();
+            onClose();
+        } catch (err) {
+            console.error("Erreur lors de la création de la tâche :", err);
+            setError("Impossible de créer la tâche. Veuillez réessayer.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const isFormValid = title.trim() !== '' && description.trim() !== '' && dueDate !== '';
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
+            {error && (
+                <div style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px', textAlign: 'center', backgroundColor: '#FEE2E2', padding: '10px', borderRadius: '6px' }}>
+                    {error}
+                </div>
+            )}
 
             <div className={styles.formGroup}>
                 <label htmlFor="title">Titre*</label>
@@ -67,7 +97,6 @@ export default function CreateTaskForm({ projectId, onClose }: CreateTaskFormPro
                 </div>
             </div>
 
-
             <div className={styles.formGroup}>
                 <label htmlFor="assignedTo">Assigné à :</label>
                 <div className={styles.selectWrapper}>
@@ -78,6 +107,7 @@ export default function CreateTaskForm({ projectId, onClose }: CreateTaskFormPro
                         className={`${assignedTo === "" ? styles.placeholderSelect : ""} ${styles.customSelect}`}
                     >
                         <option value="" disabled>Choisir un ou plusieurs collaborateurs</option>
+                        {/* Assure-toi que ces "value" correspondent bien aux vrais IDs de tes utilisateurs en BDD */}
                         <option value="user1">Caroline Leroy</option>
                         <option value="user2">David Moreau</option>
                     </select>
@@ -119,9 +149,9 @@ export default function CreateTaskForm({ projectId, onClose }: CreateTaskFormPro
                 <button
                     type="submit"
                     className={styles.submitBtn}
-                    disabled={!isFormValid}
+                    disabled={!isFormValid || isSubmitting}
                 >
-                    + Ajouter une tâche
+                    {isSubmitting ? 'Création en cours...' : '+ Ajouter une tâche'}
                 </button>
             </div>
         </form>
