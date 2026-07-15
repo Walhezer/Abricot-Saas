@@ -84,6 +84,11 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
   }
 
   const safeProject = project as unknown as SafeProjectData;
+  const projectData = {
+    title: safeProject.name,
+    description: safeProject.description || '',
+    contributors: "2_collabs"
+  };
   const totalContributors = (safeProject.members?.length || 0) + (safeProject.owner ? 1 : 0);
   const isOwner = currentUser?.id === safeProject.owner?.id;
   return (
@@ -94,15 +99,11 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
           <div className={styles.projectHeaderContent}>
             <div className={styles.titleRow}>
               <h1 className={styles.projectTitle}>{safeProject.name}</h1>
-              {isOwner && (
+              {(isOwner || process.env.NODE_ENV === 'development') && (
                 <EditProjectTrigger
                   projectId={projectId}
                   className={styles.modifyLink}
-                  projectData={{
-                    title: safeProject.name,
-                    description: safeProject.description || '',
-                    contributors: "2_collabs"
-                  }}
+                  projectData={projectData} // Passe la variable, pas l'objet littéral
                 />
               )}
             </div>

@@ -1,6 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { getAuthToken } from '@/app/actions/auth'; 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
@@ -74,4 +75,24 @@ export async function createProject(data: CreateProjectData) {
   }
 
   return await response.json();
+}
+
+export async function deleteProject(projectId: string) {
+  const token = await getAuthToken(); 
+  
+  const response = await fetch(`${API_URL}/projects/${projectId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    console.error("DEBUG: Échec suppression API :", response.status, error);
+    throw new Error("Impossible de supprimer le projet");
+  }
+
+  return true;
 }
