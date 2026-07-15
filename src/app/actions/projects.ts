@@ -1,7 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { getAuthToken } from '@/app/actions/auth'; 
+import { getAuthToken } from '@/app/actions/auth';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
@@ -17,7 +17,6 @@ export interface CreateProjectData {
   contributors?: string[];
 }
 
-// Updating an Existing Project 
 export async function updateProject(projectId: string, updateData: UpdateProjectData) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -33,6 +32,7 @@ export async function updateProject(projectId: string, updateData: UpdateProject
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      // The API expects "name" while the UI uses "title".
       body: JSON.stringify({
         name: updateData.title,
         description: updateData.description,
@@ -46,14 +46,12 @@ export async function updateProject(projectId: string, updateData: UpdateProject
     }
 
     return await response.json();
-
   } catch (error) {
     console.error('API Error updateProject:', error);
     throw error;
   }
 }
 
-// Creating a New Project
 export async function createProject(data: CreateProjectData) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -66,6 +64,7 @@ export async function createProject(data: CreateProjectData) {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
+    // The API expects "name" while the UI uses "title".
     body: JSON.stringify({
       name: data.title,
       description: data.description,
@@ -82,8 +81,8 @@ export async function createProject(data: CreateProjectData) {
 }
 
 export async function deleteProject(projectId: string) {
-  const token = await getAuthToken(); 
-  
+  const token = await getAuthToken();
+
   const response = await fetch(`${API_URL}/projects/${projectId}`, {
     method: 'DELETE',
     headers: {

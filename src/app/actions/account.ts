@@ -6,7 +6,7 @@ import { UpdateAccountDTO } from '@/services/account.service';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
-// Updates the user's information (PUT)
+// Server action used to update the authenticated user's profile.
 export async function updateAccountInfo(data: UpdateAccountDTO): Promise<User> {
   const token = await getAuthToken();
 
@@ -31,7 +31,7 @@ export async function updateAccountInfo(data: UpdateAccountDTO): Promise<User> {
   return response.json();
 }
 
-// Updates the user's password (PUT)
+// Server action used to change the authenticated user's password.
 export async function updateUserPassword(data: { currentPassword: string, newPassword: string }) {
   const token = await getAuthToken();
   

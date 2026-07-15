@@ -32,7 +32,7 @@ export async function addComment(projectId: string, taskId: string, formData: Fo
       throw new Error(data.message || 'Erreur lors de l\'ajout du commentaire.');
     }
 
-    // Refresh the project page to view the new comment
+    // Revalidate the project page after creating a new comment.
     revalidatePath(`/projects/${projectId}`);
     return { success: true, data };
   } catch (error) {
