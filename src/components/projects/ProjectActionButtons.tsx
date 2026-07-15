@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Member } from '@/types/dashboard';
 import Modal from '@/components/ui/Modal';
 import CreateTaskForm from './CreateTaskForm';
 import AITaskGenerator from './AITaskGenerator';
@@ -10,9 +11,10 @@ interface ProjectActionButtonsProps {
     projectId: string;
     btnClassName: string;
     iaBtnClassName: string;
+    members: Member[];
 }
 
-export default function ProjectActionButtons({ projectId, btnClassName, iaBtnClassName }: ProjectActionButtonsProps) {
+export default function ProjectActionButtons({ projectId, btnClassName, iaBtnClassName, members }: ProjectActionButtonsProps) {
     const [activeModal, setActiveModal] = useState<'create_task' | 'ai_task' | null>(null);
 
     return (
@@ -40,6 +42,7 @@ export default function ProjectActionButtons({ projectId, btnClassName, iaBtnCla
                 <CreateTaskForm
                     projectId={projectId}
                     onClose={() => setActiveModal(null)}
+                    members={members}
                 />
             </Modal>
             <Modal

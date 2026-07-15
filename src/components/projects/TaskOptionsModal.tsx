@@ -1,3 +1,7 @@
+'use client';
+
+import { useRouter } from 'next/navigation'; // Ajoute ceci
+import { deleteTask } from '@/app/actions/tasks'; // Ajoute ceci
 import Modal from '@/components/ui/Modal';
 import TrashIcon from '@/components/ui/TrashIcon';
 import EditIcon from '@/components/ui/EditIcon';
@@ -9,14 +13,30 @@ interface TaskOptionsModalProps {
     onClose: () => void;
     onEdit: () => void;
     task: AssignedTask;
+    projectId: string; 
 }
 
 export default function TaskOptionsModal({
     isOpen,
     onClose,
     onEdit,
-    task
+    task,
+    projectId 
 }: TaskOptionsModalProps) {
+    
+    const router = useRouter(); 
+    const handleDelete = async () => {
+        if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
+            try {
+                await deleteTask(projectId, task.id);
+                router.refresh(); 
+                onClose(); 
+            } catch (error) {
+                console.error("Erreur suppression :", error);
+                alert("Une erreur est survenue lors de la suppression.");
+            }
+        }
+    };
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} variant="compact">
@@ -25,9 +45,7 @@ export default function TaskOptionsModal({
                 <p className={styles.optionsDescription}>{task.description}</p>
 
                 <div className={styles.optionsActions}>
-                    <button className={styles.deleteAction} onClick={() => {
-                        console.log("Supprimer la tâche :", task.id);
-                    }}>
+                    <button className={styles.deleteAction} onClick={handleDelete}>
                         <TrashIcon />
                         Supprimer
                     </button>

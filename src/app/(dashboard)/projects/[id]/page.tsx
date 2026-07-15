@@ -8,6 +8,7 @@ import EditProjectTrigger from '@/components/projects/EditProjectTrigger';
 import { getAccountInfo } from '@/services/account.service';
 import TaskSection from '@/components/projects/TaskSection';
 import BackButton from '@/components/ui/BackButton';
+import { Member } from '@/types/dashboard';
 
 export const metadata: Metadata = {
   title: 'Détails du projet',
@@ -92,7 +93,8 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
   const totalContributors = (safeProject.members?.length || 0) + (safeProject.owner ? 1 : 0);
   const isOwner = currentUser?.id === safeProject.owner?.id;
   const isContributor = safeProject.members?.some((member) => member.id === currentUser?.id);
-  const canEdit = isOwner || isContributor || process.env.NODE_ENV === 'development';
+  const canEdit = isOwner || isContributor;
+  
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.topBar}>
@@ -120,6 +122,7 @@ export default async function SingleProjectPage({ params }: ProjectPageProps) {
             projectId={projectId}
             btnClassName={styles.createTaskBtn}
             iaBtnClassName={styles.iaBtn}
+            members={(safeProject?.members as unknown as Member[]) || []}
           />
         </div>
 

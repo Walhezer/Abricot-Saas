@@ -75,3 +75,29 @@ export async function createTask(data: CreateTaskData) {
     throw error;
   }
 }
+
+export async function deleteTask(projectId: string, taskId: string) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('abricot_token')?.value;
+
+  if (!token) throw new Error('Utilisateur non authentifié');
+
+  try {
+    const response = await fetch(`${API_URL}/projects/${projectId}/tasks/${taskId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || 'Erreur lors de la suppression de la tâche');
+    }
+
+    return true;
+  } catch (error) {
+    console.error('API Error deleteTask:', error);
+    throw error;
+  }
+}

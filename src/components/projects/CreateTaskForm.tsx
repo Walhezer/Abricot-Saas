@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createTask } from '@/app/actions/tasks';
+import { Member } from '@/types/dashboard';
 import styles from './FormModal.module.css';
 import CalendarIcon from '@/components/ui/CalendarIcon';
 import ChevronIcon from '@/components/ui/ChevronIcon';
@@ -10,9 +11,10 @@ import ChevronIcon from '@/components/ui/ChevronIcon';
 interface CreateTaskFormProps {
     projectId: string;
     onClose: () => void;
+    members: Member[];
 }
 
-export default function CreateTaskForm({ projectId, onClose }: CreateTaskFormProps) {
+export default function CreateTaskForm({ projectId, onClose, members = [] }: CreateTaskFormProps) {
     const router = useRouter();
 
     const [title, setTitle] = useState('');
@@ -106,10 +108,12 @@ export default function CreateTaskForm({ projectId, onClose }: CreateTaskFormPro
                         onChange={(e) => setAssignedTo(e.target.value)}
                         className={`${assignedTo === "" ? styles.placeholderSelect : ""} ${styles.customSelect}`}
                     >
-                        <option value="" disabled>Choisir un ou plusieurs collaborateurs</option>
-                        {/* Assure-toi que ces "value" correspondent bien aux vrais IDs de tes utilisateurs en BDD */}
-                        <option value="user1">Caroline Leroy</option>
-                        <option value="user2">David Moreau</option>
+                        <option value="" disabled>Choisir un collaborateur</option>
+                        {members.map((member) => (
+                            <option key={member.id} value={member.userId}>
+                                {member.user.name}
+                            </option>
+                        ))}
                     </select>
 
                     <span className={styles.customChevron}>

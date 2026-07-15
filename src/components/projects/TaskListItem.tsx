@@ -162,6 +162,7 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
                 onClose={() => setActiveModal(null)}
                 onEdit={() => setActiveModal('edit_task')}
                 task={task}
+                projectId={task.projectId}
             />
             <Modal
                 isOpen={activeModal === 'edit_task'}
