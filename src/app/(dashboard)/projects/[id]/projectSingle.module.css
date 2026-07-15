@@ -57,10 +57,18 @@
 }
 
 .modifyLink {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
   font-size: 13px;
-  color: #D3590B;
+  color: #a84609;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.modifyLink:hover {
+  color: #B24A09; 
 }
 
 .projectDescription {

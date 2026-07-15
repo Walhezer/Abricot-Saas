@@ -19,13 +19,13 @@ export default function EditProjectTrigger({ projectId, projectData, className }
 
     return (
         <>
-            <span
+            <button
+                type="button"
                 className={className}
                 onClick={() => setIsModalOpen(true)}
-                style={{ cursor: 'pointer' }}
             >
                 Modifier
-            </span>
+            </button>
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

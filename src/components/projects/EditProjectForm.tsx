@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './FormModal.module.css'; 
+import styles from './FormModal.module.css';
 import ChevronIcon from '@/components/ui/ChevronIcon';
-import { updateProject } from '@/app/actions/projects';
+import { updateProject, deleteProject } from '@/app/actions/projects';
 
 export interface EditProjectData {
   title: string;
   description: string;
-  contributors: string; 
+  contributors: string;
 }
 
 interface EditProjectFormProps {
@@ -28,18 +28,30 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleDelete = async () => {
+    if (confirm("Es-tu sûr de vouloir supprimer ce projet ? Cette action est irréversible.")) {
+      try {
+        await deleteProject(projectId);
+        router.push('/projects'); 
+        router.refresh();
+      } catch (err) {
+        console.error("Erreur suppression :", err);
+        setError("Erreur lors de la suppression du projet.");
+      }
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
 
     try {
-      await updateProject(projectId, { 
-        title, 
-        description 
-        // Ajoute 'contributors' ici si ton API l'accepte
+      await updateProject(projectId, {
+        title,
+        description
       });
-      
+
       router.refresh();
       onClose();
     } catch (err) {
@@ -54,7 +66,7 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      
+
       {error && (
         <div style={{ color: '#DC2626', marginBottom: '16px', fontSize: '14px', textAlign: 'center' }}>
           {error}
@@ -86,9 +98,9 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
       <div className={styles.formGroup}>
         <label htmlFor="edit-project-contributors">Contributeurs</label>
         <div className={styles.selectWrapper}>
-          <select 
-            id="edit-project-contributors" 
-            value={contributors} 
+          <select
+            id="edit-project-contributors"
+            value={contributors}
             onChange={(e) => setContributors(e.target.value)}
             className={`${contributors === "" ? styles.placeholderSelect : ""} ${styles.customSelect}`}
           >
@@ -102,15 +114,22 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
           </span>
         </div>
       </div>
-
       <div className={styles.actions}>
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={styles.submitBtn}
           disabled={!isFormValid || isSubmitting}
         >
           {isSubmitting ? 'Enregistrement...' : 'Enregistrer'}
         </button>
+        <button
+          type="button"
+          onClick={handleDelete}
+          className={styles.deleteBtn}
+        >
+          Supprimer le projet
+        </button>
+
       </div>
     </form>
   );

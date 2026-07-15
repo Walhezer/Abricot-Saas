@@ -33,7 +33,11 @@ export async function updateProject(projectId: string, updateData: UpdateProject
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(updateData),
+      body: JSON.stringify({
+        name: updateData.title,
+        description: updateData.description,
+        contributors: updateData.contributors
+      }),
     });
 
     if (!response.ok) {

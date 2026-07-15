@@ -79,8 +79,26 @@
 
 .actions {
   display: flex;
-  justify-content: flex-start;
-  margin-top: 40px;
+  flex-direction: row;
+  justify-content: space-between; 
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+.deleteBtn {
+  padding: 12px 24px;        
+  background-color: #DC2626; 
+  color: #FFFFFF;          
+  border: none;
+  border-radius: 8px;        
+  font-size: 15px;           
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;    
+}
+
+.deleteBtn:hover {
+  background-color: #B91C1C; 
 }
 
 .submitBtn {
