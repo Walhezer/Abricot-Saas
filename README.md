@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🍑 L'abricot - Application de gestion de projets SaaS
+L'abricot est une application de gestion de tâches collaborative permettant aux utilisateurs de créer, suivre et organiser leurs projets en équipe à travers une interface intuitive.
+Ce projet a été développé dans le cadre de ma formation de Développeur Full-Stack chez OpenClassrooms.
 
-## Getting Started
+🛠 Technologies utilisées
+Frontend : Next.js, React, TypeScript, TailwindCSS, CSS Modules.
 
-First, run the development server:
+Backend : Node.js, Express, Prisma (ORM), TypeScript.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Architecture : Application SaaS avec authentification JWT et gestion de rôles.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🚀 Mode d'emploi : Lancement du projet en local
+Ce projet est composé de deux parties distinctes qui doivent fonctionner simultanément :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Le Backend (L'API qui gère la base de données).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Le Frontend (L'interface Next.js de ce dépôt).
 
-## Learn More
+Voici la procédure pour tout lancer avec deux terminaux.
 
-To learn more about Next.js, take a look at the following resources:
+ÉTAPE 1 : Lancer le Backend (API)
+Ouvrez un premier terminal.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Naviguez jusqu'au dossier de votre backend.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Installez les dépendances : npm install
 
-## Deploy on Vercel
+Configurez vos variables d'environnement (voir .env.example).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Démarrez le serveur : npm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Note : Le serveur doit être actif sur le port 8000.
+
+ÉTAPE 2 : Lancer le Frontend
+Ouvrez un deuxième terminal (ne fermez pas celui du backend).
+
+Naviguez jusqu'au dossier racine de ce projet : labricot-frontend.
+
+Créez votre fichier d'environnement : cp .env.example .env.local
+
+Configurez le fichier .env.local avec l'URL de votre API : NEXT_PUBLIC_API_URL=http://localhost:8000
+
+Installez les dépendances : npm install
+
+Lancez le serveur : npm run dev
+
+ÉTAPE 3 : Accéder à l'application
+Ouvrez votre navigateur web.
+
+Allez à l'adresse fournie par le terminal du frontend (généralement http://localhost:3000).
+
+📋 Fonctionnalités implémentées
+Gestion complète du CRUD : Création, lecture, modification et suppression de tâches.
+
+Assignation dynamique : Système permettant d'assigner des membres réels du projet à une tâche.
+
+Sécurité : Vérification des droits d'accès aux projets via middleware (Auth).
+
+Interface : Design responsive et moderne.
+
+Développé par Etienne ESPIN
