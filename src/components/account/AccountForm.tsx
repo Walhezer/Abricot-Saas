@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { removeAuthToken } from '@/app/actions/auth'
 import styles from './AccountForm.module.css';
-import { updateAccountInfo } from '@/app/actions/account';
+import { updateAccountInfo, updateUserPassword } from '@/app/actions/account';
 
 interface InitialAccountData {
     lastName?: string;
@@ -21,7 +21,8 @@ export default function AccountForm({ initialData }: AccountFormProps) {
     const [lastName, setLastName] = useState(initialData.lastName ?? '');
     const [firstName, setFirstName] = useState(initialData.firstName ?? '');
     const [email, setEmail] = useState(initialData.email ?? '');
-    const [password, setPassword] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -32,14 +33,26 @@ export default function AccountForm({ initialData }: AccountFormProps) {
         setError('');
         setSuccess('');
         setIsSubmitting(true);
+
         try {
             await updateAccountInfo({
                 name: `${firstName} ${lastName}`.trim(),
                 email,
-                password: password ? password : undefined
             });
-            setSuccess("Vos informations ont été mises à jour !");
-            setPassword('');
+
+            if (currentPassword && newPassword) {
+                await updateUserPassword({
+                    currentPassword,
+                    newPassword
+                });
+                setCurrentPassword('');
+                setNewPassword('');
+            } else if (currentPassword || newPassword) {
+                throw new Error("Pour modifier votre mot de passe, veuillez renseigner l'ancien et le nouveau.");
+            }
+
+            setSuccess("Vos informations ont été mises à jour avec succès !");
+
         } catch (err: unknown) {
             let message = 'Erreur lors de la mise à jour';
             if (err instanceof Error && typeof err.message === 'string') {
@@ -109,16 +122,29 @@ export default function AccountForm({ initialData }: AccountFormProps) {
                 </div>
 
                 <div className={styles.formGroup}>
-                    <label htmlFor="password">Nouveau mot de passe</label>
+                    <label htmlFor="currentPassword">Mot de passe actuel</label>
                     <input
                         type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        id="currentPassword"
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
                         className={styles.input}
                         placeholder="••••••••••"
                     />
                 </div>
+
+                <div className={styles.formGroup}>
+                    <label htmlFor="newPassword">Nouveau mot de passe</label>
+                    <input
+                        type="password"
+                        id="newPassword"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className={styles.input}
+                        placeholder="••••••••••"
+                    />
+                </div>
+
                 <div className={styles.actionsContainer}>
                     <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
                         {isSubmitting ? 'Modification en cours...' : 'Modifier les informations'}

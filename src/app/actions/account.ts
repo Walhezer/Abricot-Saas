@@ -30,3 +30,31 @@ export async function updateAccountInfo(data: UpdateAccountDTO): Promise<User> {
 
   return response.json();
 }
+
+// Updates the user's password (PUT)
+export async function updateUserPassword(data: { currentPassword: string, newPassword: string }) {
+  const token = await getAuthToken();
+  
+  if (!token) {
+    throw new Error("Utilisateur non authentifié.");
+  }
+
+  const response = await fetch(`${API_URL}/auth/password`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.message || "Erreur lors de la mise à jour du mot de passe.");
+  }
+
+  return response.json();
+}
