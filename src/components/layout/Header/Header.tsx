@@ -7,9 +7,23 @@ import DashboardIcon from '@/components/ui/DashboardIcon';
 import FolderIcon from '@/components/ui/FolderIcon';
 import LogoAbricot from '@/components/ui/LogoAbricot';
 
-export default function Header() {
+const getInitials = (name: string) => {
+  if (!name) return 'AM';
+  const parts = name.trim().split(' ');
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+};
+
+interface HeaderProps {
+  userName?: string;
+}
+
+export default function Header({ userName = 'Alice Martin' }: HeaderProps) {
   const pathname = usePathname();
   const isAccountPage = pathname === '/account';
+  const initials = getInitials(userName);
 
   return (
     <header className={styles.header}>
@@ -38,7 +52,7 @@ export default function Header() {
         <div className={styles.headerRight}>
           <Link href="/account" style={{ textDecoration: 'none' }} aria-label="Accéder à mon profil">
             <div className={`${styles.avatar} ${isAccountPage ? styles.avatarOrange : ''}`}>
-              AD
+              {initials}
             </div>
           </Link>
         </div>
