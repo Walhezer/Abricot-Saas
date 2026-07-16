@@ -221,3 +221,83 @@
 .customSelect option:not([disabled]) {
   color: #1F2937;
 }
+
+.dropdownContainer {
+  position: relative;
+  width: 100%;
+}
+
+
+.dropdownHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0; 
+  border-radius: 6px;
+  background-color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s;
+}
+
+.dropdownHeader:hover {
+  border-color: #cbd5e1;
+}
+
+.textPlaceholder {
+  color: #94a3b8;
+}
+
+.textSelected {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+
+.chevronIcon {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease; 
+  color: #64748b; 
+  width: 20px;   
+  height: 20px;
+}
+
+.chevronIconOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 50; 
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  gap: 8px;
+}
+
+.contributorItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.contributorItem:hover {
+  background-color: #f1f5f9;
+}

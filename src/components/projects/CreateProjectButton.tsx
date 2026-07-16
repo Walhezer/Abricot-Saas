@@ -7,7 +7,7 @@ interface CreateProjectButtonProps {
     buttonClassName: string;
 }
 
-export default function CreateProjectButton({ buttonClassName }: CreateProjectButtonProps) {
+export default function CreateProjectButton({ buttonClassName}: CreateProjectButtonProps) {
     const [activeModal, setActiveModal] = useState<'create_project' | null>(null);
 
     return (
@@ -25,7 +25,9 @@ export default function CreateProjectButton({ buttonClassName }: CreateProjectBu
                 title="Créer un projet"
             >
 
-                <CreateProjectForm onClose={() => setActiveModal(null)} />
+                <CreateProjectForm
+                    onClose={() => setActiveModal(null)}
+                />
             </Modal>
         </>
     );

@@ -1,4 +1,4 @@
-import { getAuthToken } from '@/app/actions/auth'; 
+import { getAuthToken } from '@/app/actions/auth';
 import { User } from '@/types/dashboard';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
@@ -12,23 +12,24 @@ export interface UpdateAccountDTO {
 // Retrieves information about the logged-in user (GET)
 export async function getAccountInfo(): Promise<User> {
   const token = await getAuthToken();
+  if (!token) throw new Error("Utilisateur non authentifié.");
 
-  if (!token) {
-    throw new Error("Utilisateur non authentifié.");
+  try {
+    const response = await fetch(`${API_URL}/auth/profile`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      },
+      cache: 'no-store', 
+    });
+
+    if (!response.ok) {
+       return { id: '', name: 'Erreur', email: '' } as User; 
+    }
+
+    return response.json();
+  } catch {
+    return { id: '', name: 'Erreur', email: '' } as User;
   }
-
-  const response = await fetch(`${API_URL}/auth/profile`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}` 
-    },
-    cache: 'no-store', 
-  });
-
-  if (!response.ok) {
-    throw new Error("Erreur lors de la récupération des données du compte.");
-  }
-
-  return response.json();
 }

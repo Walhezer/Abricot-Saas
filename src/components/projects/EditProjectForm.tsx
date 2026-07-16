@@ -28,15 +28,19 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleDelete = async () => {
+const handleDelete = async () => {
     if (confirm("Es-tu sûr de vouloir supprimer ce projet ? Cette action est irréversible.")) {
+      setIsSubmitting(true);
+      setError(null);
+      
       try {
         await deleteProject(projectId);
+        onClose(); 
         router.push('/projects'); 
-        router.refresh();
       } catch (err) {
         console.error("Erreur suppression :", err);
         setError("Erreur lors de la suppression du projet.");
+        setIsSubmitting(false);
       }
     }
   };
@@ -126,6 +130,7 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
           type="button"
           onClick={handleDelete}
           className={styles.deleteBtn}
+          disabled={isSubmitting}
         >
           Supprimer le projet
         </button>

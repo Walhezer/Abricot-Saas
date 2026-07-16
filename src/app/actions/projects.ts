@@ -12,7 +12,7 @@ export interface UpdateProjectData {
 }
 
 export interface CreateProjectData {
-  title: string;
+  name: string;       
   description: string;
   contributors?: string[];
 }
@@ -64,9 +64,8 @@ export async function createProject(data: CreateProjectData) {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    // The API expects "name" while the UI uses "title".
     body: JSON.stringify({
-      name: data.title,
+      name: data.name,
       description: data.description,
       contributors: data.contributors
     }),
