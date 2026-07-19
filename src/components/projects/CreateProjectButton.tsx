@@ -3,10 +3,15 @@
 import { useState } from 'react';
 import Modal from '@/components/ui/Modal';
 import CreateProjectForm from './CreateProjectForm';
+
 interface CreateProjectButtonProps {
     buttonClassName: string;
 }
 
+/**
+ * Renders a button that triggers the project creation modal.
+ * Manages the visibility state of the underlying form modal.
+ */
 export default function CreateProjectButton({ buttonClassName}: CreateProjectButtonProps) {
     const [activeModal, setActiveModal] = useState<'create_project' | null>(null);
 

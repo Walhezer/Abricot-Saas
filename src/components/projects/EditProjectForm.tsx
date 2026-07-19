@@ -18,6 +18,10 @@ interface EditProjectFormProps {
   onClose: () => void;
 }
 
+/**
+ * Client component that renders the project editing form.
+ * Allows users to update project details or permanently delete the project.
+ */
 export default function EditProjectForm({ projectId, initialData, onClose }: EditProjectFormProps) {
   const router = useRouter();
 
@@ -28,7 +32,7 @@ export default function EditProjectForm({ projectId, initialData, onClose }: Edi
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-const handleDelete = async () => {
+  const handleDelete = async () => {
     if (confirm("Es-tu sûr de vouloir supprimer ce projet ? Cette action est irréversible.")) {
       setIsSubmitting(true);
       setError(null);
@@ -118,6 +122,7 @@ const handleDelete = async () => {
           </span>
         </div>
       </div>
+      
       <div className={styles.actions}>
         <button
           type="submit"
@@ -134,8 +139,8 @@ const handleDelete = async () => {
         >
           Supprimer le projet
         </button>
-
       </div>
+      
     </form>
   );
 }

@@ -6,6 +6,10 @@ interface KanbanViewProps {
   tasks: AssignedTask[];
 }
 
+/**
+ * Renders the full Kanban board view.
+ * Filters the provided tasks by status and distributes them into corresponding columns.
+ */
 export default function KanbanView({ tasks }: KanbanViewProps) {
   if (!tasks || tasks.length === 0) {
     return (

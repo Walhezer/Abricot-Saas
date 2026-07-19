@@ -2,18 +2,19 @@ import type { Metadata } from 'next';
 import { Inter, Manrope } from 'next/font/google';
 import '../styles/globals.css';
 
-
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter', 
 });
-
 
 const manrope = Manrope({
   subsets: ['latin'],
   variable: '--font-manrope', 
 });
 
+/**
+ * Defines global metadata for the application used for SEO and browser tabs.
+ */
 export const metadata: Metadata = {
   title: {
     template: "%s | L'Abricot", 
@@ -22,6 +23,10 @@ export const metadata: Metadata = {
   description: "Application SaaS de gestion de tâches et de projets pour les équipes.",
 };
 
+/**
+ * Root layout component that wraps the entire application.
+ * Injects global fonts and sets up the base HTML structure.
+ */
 export default function RootLayout({
   children,
 }: {

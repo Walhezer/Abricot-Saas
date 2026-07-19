@@ -14,6 +14,10 @@ interface EditProjectTriggerProps {
     className: string;
 }
 
+/**
+ * Renders a trigger button that opens the project editing modal.
+ * Manages the visibility state of the underlying modal component.
+ */
 export default function EditProjectTrigger({ projectId, projectData, className }: EditProjectTriggerProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 

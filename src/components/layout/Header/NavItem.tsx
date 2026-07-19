@@ -8,6 +8,10 @@ interface NavItemProps {
     icon: React.ReactNode;
 }
 
+/**
+ * Renders a reusable navigation link component.
+ * Automatically handles active and inactive visual states.
+ */
 export default function NavItem({ href, label, isActive, icon }: NavItemProps) {
     return (
         <Link  href={href}  className={`${styles.navButton} ${isActive ? styles.activeBtn : styles.inactiveBtn}`} >

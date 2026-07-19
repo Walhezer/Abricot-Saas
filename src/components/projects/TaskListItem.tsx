@@ -16,13 +16,15 @@ interface TaskListItemProps {
     currentUser: User;
 }
 
+/**
+ * Renders an individual task item within a list.
+ * Includes an expandable section for comments, status indicators, and options modal triggers.
+ */
 export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
-    // State for managing the opening and closing of the accordion
     const [isExpanded, setIsExpanded] = useState(false);
     const [activeModal, setActiveModal] = useState<'options' | 'edit_task' | null>(null);
     const [commentError, setCommentError] = useState<string | null>(null);
 
-    // Utility for setting the color and text of the status badge
     const getStatusDisplay = (status: string) => {
         switch (status) {
             case 'TODO': return { label: 'À faire', className: styles.statusTodo };
@@ -34,7 +36,6 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
 
     const statusData = getStatusDisplay(task.status);
 
-    // Date format (e.g., “March 9”)
     const formatDate = (dateString: string) => {
         if (!dateString) return '';
         return new Date(dateString).toLocaleDateString('fr-FR', {
@@ -43,7 +44,6 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
         });
     };
 
-    // Date and time format for comments (e.g., “March 23, 11:20”)
     const formatDateTime = (dateString: string) => {
         if (!dateString) return '';
         return new Date(dateString).toLocaleDateString('fr-FR', {
@@ -65,7 +65,6 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
     return (
         <div className={styles.taskCard}>
 
-            {/* Top of the map (Always visible) */}
             <div className={styles.cardMain}>
                 <div className={styles.header}>
                     <div className={styles.titleArea}>
@@ -105,7 +104,6 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
                 </div>
             </div>
 
-            {/* Accordion Button */}
             <button
                 className={styles.toggleBtn}
                 onClick={() => setIsExpanded(!isExpanded)}
@@ -116,11 +114,9 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
                 </span>
             </button>
 
-            {/* Comments Section (Visible when clicked)  */}
             {isExpanded && (
                 <div className={styles.commentsSection}>
 
-                    {/* List of Comments  */}
                     {task.comments?.map((comment) => (
                         <div key={comment.id} className={styles.commentItem}>
                             <div className={styles.commentAvatar}>{getInitials(comment.author.name)}</div>
@@ -136,7 +132,6 @@ export default function TaskListItem({ task, currentUser }: TaskListItemProps) {
                         </div>
                     ))}
 
-                    {/* Field for entering a new comment */}
                     <form action={handleAddComment} className={styles.addCommentArea}>
                         <div className={styles.commentAvatar}>
                             {getInitials(currentUser?.name || "User")}

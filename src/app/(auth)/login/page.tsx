@@ -7,15 +7,22 @@ import Link from 'next/link';
 import { loginWithCredentials } from '@/app/actions/auth';
 import styles from './login.module.css';
 
-
+/**
+ * Renders the login page.
+ * Allows users to authenticate and securely access their dashboard.
+ */
 export default function LoginPage() {
   const router = useRouter();
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  /**
+   * Handles form submission, validates credentials via server action,
+   * and redirects to the dashboard upon successful authentication.
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -23,7 +30,7 @@ export default function LoginPage() {
 
     try {
       const res = await loginWithCredentials(email, password);
-      
+
       if (res.success) {
         router.push('/dashboard');
       } else {
@@ -42,24 +49,20 @@ export default function LoginPage() {
 
   return (
     <div className={styles.splitContainer}>
-      
-      {/* Côté Gauche : Le Formulaire */}
       <div className={styles.leftPanel}>
         <div className={styles.formWrapper}>
-          
-          {/* Logo */}
           <div className={styles.logoContainer}>
-            <Image 
+            <Image
               src="/images/logo-abricot.svg"
-              alt="Logo Abricot" 
-              width={250} 
-              height={30} 
+              alt="Logo de l'application L'abricot"
+              width={250}
+              height={30}
               priority
             />
           </div>
 
           <h1 className={styles.title}>Connexion</h1>
-          
+
           {error && <div className={styles.errorAlert}>{error}</div>}
 
           <form onSubmit={handleSubmit} className={styles.form}>
@@ -74,7 +77,6 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             <div className={styles.inputGroup}>
               <label htmlFor="password">Mot de passe</label>
               <input
@@ -86,17 +88,14 @@ export default function LoginPage() {
                 required
               />
             </div>
-
-            <button 
-              type="submit" 
-              className={styles.submitButton} 
+            <button
+              type="submit"
+              className={styles.submitButton}
               disabled={isLoading}
             >
               {isLoading ? '...' : 'Se connecter'}
             </button>
           </form>
-
-          {/* Liens secondaires */}
           <div className={styles.forgotPassword}>
             <Link href="#">Mot de passe oublié ?</Link>
           </div>
@@ -108,10 +107,10 @@ export default function LoginPage() {
         </div>
       </div>
       <div className={styles.rightPanel}>
-        <Image 
+        <Image
           src="/images/cover-login.jpg"
-          alt="Bureau avec clavier et mètre" 
-          fill 
+          alt="Bureau avec clavier et mètre"
+          fill
           style={{ objectFit: 'cover' }}
           priority
         />

@@ -10,6 +10,10 @@ interface TaskSectionProps {
     currentUser: User;
 }
 
+/**
+ * Client component that manages the primary list of tasks within a project.
+ * Handles local state for filtering by status and searching by text.
+ */
 export default function TaskSection({ tasks, currentUser }: TaskSectionProps) {
     const [statusFilter, setStatusFilter] = useState('ALL');
     const [searchQuery, setSearchQuery] = useState('');

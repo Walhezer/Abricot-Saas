@@ -8,6 +8,10 @@ interface KanbanColumnProps {
   tasks: AssignedTask[];
 }
 
+/**
+ * Renders a single column within the Kanban board.
+ * Displays a status title, a task count badge, and a vertical list of task cards.
+ */
 export default function KanbanColumn({ title, count, tasks }: KanbanColumnProps) {
   return (
     <div className={styles.column}>

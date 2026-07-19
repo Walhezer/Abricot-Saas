@@ -16,6 +16,10 @@ interface AccountFormProps {
     initialData: InitialAccountData;
 }
 
+/**
+ * Client component that renders the account management form.
+ * Handles user profile updates, password changes, and the logout process.
+ */
 export default function AccountForm({ initialData }: AccountFormProps) {
     const router = useRouter();
     const [lastName, setLastName] = useState(initialData.lastName ?? '');

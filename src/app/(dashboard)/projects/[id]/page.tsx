@@ -29,6 +29,10 @@ interface ProjectPageProps {
   params: Promise<{ id: string }>;
 }
 
+/**
+ * Server component that renders the details of a specific project.
+ * Fetches project metadata, associated tasks, and evaluates user permissions.
+ */
 export default async function SingleProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = await params;
   const projectId = resolvedParams.id;

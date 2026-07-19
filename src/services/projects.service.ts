@@ -2,9 +2,11 @@ import { cookies } from 'next/headers';
 import { Project } from '@/types/dashboard';
 import { AssignedTask } from '@/types/dashboard';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-// Fetch all projects for the authenticated user
+/**
+ * Fetches all projects accessible to the authenticated user.
+ */
 export async function getProjects(): Promise<Project[]> {
     const cookieStore = await cookies();
     const token = cookieStore.get('abricot_token')?.value;
@@ -36,7 +38,10 @@ export async function getProjects(): Promise<Project[]> {
     }
 }
 
-// Filter projects to find a specific one by ID
+/**
+ * Retrieves a specific project by its unique identifier.
+ * Filters the user's project list to return the matching entity.
+ */
 export async function getProjectById(id: string): Promise<Project | null> {
   try {
     const projects = await getProjects();
@@ -49,7 +54,9 @@ export async function getProjectById(id: string): Promise<Project | null> {
   }
 }
 
-// Fetch all tasks associated with a specific project
+/**
+ * Fetches all tasks associated with a given project ID.
+ */
 export async function getTasksByProjectId(id: string): Promise<AssignedTask[]> {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;

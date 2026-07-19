@@ -14,6 +14,10 @@ interface CreateTaskFormProps {
     members: Member[];
 }
 
+/**
+ * Client component that renders the task creation form.
+ * Manages input fields, status selection, and submits the new task to the server.
+ */
 export default function CreateTaskForm({ projectId, onClose, members = [] }: CreateTaskFormProps) {
     const router = useRouter();
 

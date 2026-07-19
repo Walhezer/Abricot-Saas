@@ -10,6 +10,10 @@ interface TaskListProps {
   tasks: AssignedTask[];
 }
 
+/**
+ * Client component that renders a vertical list of tasks.
+ * Includes a real-time text search filter for quick task retrieval.
+ */
 export default function TaskList({ tasks }: TaskListProps) {
   const [searchQuery, setSearchQuery] = useState('');
 

@@ -8,6 +8,10 @@ interface IAButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
 }
 
+/**
+ * Renders an AI-specific action button with a sparkle icon.
+ * Manages an internal loading state to disable interactions and display feedback during processing.
+ */
 export default function IAButton({ isLoading, className, ...props }: IAButtonProps) {
   return (
     <button

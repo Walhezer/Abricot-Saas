@@ -1,5 +1,9 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
+/**
+ * Next.js Edge Middleware for route protection and redirection.
+ * Verifies the authentication cookie to secure private routes and redirects logged-in users away from auth pages.
+ */
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('abricot_token')?.value;
   const { pathname } = request.nextUrl;
@@ -29,7 +33,10 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Only run the middleware on authentication-related and protected routes.
+/**
+ * Middleware configuration defining the exact route paths to intercept.
+ * Optimizes performance by ensuring the middleware only runs on necessary routes.
+ */
 export const config = {
   matcher: [
     '/',

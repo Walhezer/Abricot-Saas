@@ -7,6 +7,10 @@ interface TaskCardProps {
   task: AssignedTask;
 }
 
+/**
+ * Renders a task card optimized for the list view layout.
+ * Displays task metadata, status, and provides navigation to the task details.
+ */
 export default function TaskCard({ task }: TaskCardProps) {
   const getStatusBadgeClass = (status: AssignedTask['status']) => {
     switch (status) {

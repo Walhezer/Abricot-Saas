@@ -11,6 +11,10 @@ interface TaskToolbarProps {
     onSearchChange?: (query: string) => void;
 }
 
+/**
+ * Renders the control toolbar above a task list.
+ * Provides interactive inputs for searching, filtering by status, and toggling views.
+ */
 export default function TaskToolbar({ onFilterChange, onSearchChange }: TaskToolbarProps) {
     return (
         <div className={styles.toolbar}>

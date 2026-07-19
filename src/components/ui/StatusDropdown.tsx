@@ -9,6 +9,10 @@ interface StatusDropdownProps {
     onStatusChange: (statusValue: string) => void;
 }
 
+/**
+ * Renders a custom dropdown menu for selecting task statuses.
+ * Manages its own open/close state and implements custom ARIA roles for accessibility.
+ */
 export default function StatusDropdown({ onStatusChange }: StatusDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     

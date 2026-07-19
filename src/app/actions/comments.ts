@@ -5,6 +5,10 @@ import { getAuthToken } from './auth';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
+/**
+ * Server action to add a new comment to a specific task.
+ * Validates the input and revalidates the project page cache on success.
+ */
 export async function addComment(projectId: string, taskId: string, formData: FormData) {
   const content = formData.get('content');
   if (!content || typeof content !== 'string' || content.trim() === '') {

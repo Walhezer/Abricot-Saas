@@ -7,6 +7,10 @@ interface SearchBarProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * Renders a styled text input specifically tailored for search functionality.
+ * Includes an integrated search icon and standard accessibility labels.
+ */
 export default function SearchBar({ 
   placeholder = "Rechercher une tâche...", 
   value, 

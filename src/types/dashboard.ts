@@ -1,9 +1,15 @@
+/**
+ * Represents a standard system user.
+ */
 export interface User {
   id: string;
   email: string;
   name: string;
 }
 
+/**
+ * Represents a user's membership and specific role within a project.
+ */
 export interface Member {
   id: string;
   role: string;
@@ -11,12 +17,18 @@ export interface Member {
   user: User;
 }
 
+/**
+ * Lightweight project representation for nested relations to minimize payload size.
+ */
 export interface ProjectShort {
   id: string;
   name: string;
   description: string;
 }
 
+/**
+ * Links a user to a specific task assignment.
+ */
 export interface Assignee {
   id: string;
   assignedAt: string;
@@ -25,6 +37,9 @@ export interface Assignee {
   user: User;
 }
 
+/**
+ * Represents a user-generated comment on a task.
+ */
 export interface Comment {
   id: string;
   content: string;
@@ -35,6 +50,9 @@ export interface Comment {
   author: User;
 }
 
+/**
+ * Comprehensive task entity including nested relations (project, assignees, comments).
+ */
 export interface AssignedTask {
   id: string;
   title: string;
@@ -51,6 +69,9 @@ export interface AssignedTask {
   comments: Comment[];
 }
 
+/**
+ * Standardized API response format for task-related queries.
+ */
 export interface AssignedTasksResponse {
   success: boolean;
   message: string;
@@ -59,6 +80,9 @@ export interface AssignedTasksResponse {
   };
 }
 
+/**
+ * Detailed project entity including statistical counts and member relations.
+ */
 export interface Project {
   id: string;
   name: string;

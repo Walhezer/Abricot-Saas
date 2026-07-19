@@ -29,6 +29,10 @@ interface CreateProjectFormProps {
   onClose: () => void;
 }
 
+/**
+ * Client component that renders the project creation form.
+ * Handles form state, contributor selection, and triggers the creation server action.
+ */
 export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
   const router = useRouter();
   const [title, setTitle] = useState('');
@@ -106,6 +110,7 @@ export default function CreateProjectForm({ onClose }: CreateProjectFormProps) {
           required
         />
       </div>
+      
       <div className={styles.formGroup}>
         <label>Contributeurs</label>
 

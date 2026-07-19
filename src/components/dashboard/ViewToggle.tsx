@@ -5,6 +5,10 @@ interface ViewToggleProps {
   currentView: 'list' | 'kanban';
 }
 
+/**
+ * Renders a toggle switch to navigate between the List and Kanban views.
+ * Preserves state via URL parameters for SSR compatibility.
+ */
 export function ViewToggle({ currentView }: ViewToggleProps) {
   return (
     <div className={styles.toggleContainer}>

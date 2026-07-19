@@ -7,6 +7,10 @@ interface BackButtonProps {
     ariaLabel?: string;
 }
 
+/**
+ * Renders a styled back navigation button with a left-pointing arrow icon.
+ * Wraps the Next.js Link component for optimal client-side routing.
+ */
 export default function BackButton({ href, className = '', ariaLabel = 'Retour' }: BackButtonProps) {
     return (
         <Link

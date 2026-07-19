@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import styles from './Footer.module.css';
 
+/**
+ * Renders the global footer component.
+ * Displays the application logo and a dynamic copyright year.
+ */
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 

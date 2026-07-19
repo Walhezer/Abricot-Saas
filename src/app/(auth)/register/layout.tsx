@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   description: 'Créez votre compte gratuitement et commencez à gérer vos projets efficacement.',
 };
 
+/**
+ * Renders the layout wrapper and metadata for the registration page.
+ */
 export default function RegisterLayout({
   children,
 }: {

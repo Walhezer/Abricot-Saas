@@ -9,11 +9,14 @@ interface ProjectCardProps {
   completedTasks: number;
 }
 
+/**
+ * Renders a summary card for a project.
+ * Displays completion progress, team members, and links to the project details.
+ */
 export default function ProjectCard({
   project,
   completedTasks,
 }: ProjectCardProps) {
-  // Dynamic calculations based on your data
   const totalTasks = project._count?.tasks || 0;
   const progress =
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
@@ -21,13 +24,11 @@ export default function ProjectCard({
 
   return (
     <Link href={`/projects/${project.id}`} className={styles.projectCard}>
-      {/* Using `project.name` instead of `title` to match the database */}
       <h2 className={styles.cardTitle}>{project.name}</h2>
       <p className={styles.cardDescription}>{project.description}</p>
 
       <div className={styles.spacer}></div>
 
-      {/* --- Progression Section --- */}
       <div className={styles.progressContainer}>
         <div className={styles.progressHeader}>
           <span className={styles.progressLabel}>Progression</span>
@@ -46,7 +47,6 @@ export default function ProjectCard({
         </span>
       </div>
 
-      {/* --- Team Section --- */}
       <div className={styles.teamContainer}>
         <div className={styles.teamHeader}>
           <span className={styles.TeamIcon}>
@@ -56,7 +56,6 @@ export default function ProjectCard({
         </div>
 
         <div className={styles.teamMembersRow}>
-          {/* Owner Group (Circle + Pill) */}
           {project.owner && (
             <div className={styles.ownerGroup}>
               <div className={`${styles.avatar} ${styles.ownerAvatar}`}>
@@ -68,7 +67,6 @@ export default function ProjectCard({
             </div>
           )}
 
-          {/* Member Groups (Overlapping Circles) */}
           <div className={styles.memberGroup}>
             {project.members?.map((member, index) => (
               <div

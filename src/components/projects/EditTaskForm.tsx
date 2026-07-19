@@ -23,6 +23,10 @@ interface EditTaskFormProps {
   onClose: () => void;
 }
 
+/**
+ * Client component that renders the task editing form.
+ * Handles state updates for task details, dates, and status modifications.
+ */
 export default function EditTaskForm({ projectId, taskId, initialData, onClose }: EditTaskFormProps) {
   const router = useRouter(); 
 
@@ -161,10 +165,10 @@ export default function EditTaskForm({ projectId, taskId, initialData, onClose }
           className={styles.submitBtn}
           disabled={!isFormValid || isSubmitting}
         >
-          {/* Changement du texte pendant le chargement */}
           {isSubmitting ? 'Enregistrement...' : 'Enregistrer'}
         </button>
       </div>
+      
     </form>
   );
 }

@@ -12,6 +12,9 @@ export interface CreateTaskData {
   assigneeIds?: string[];
 }
 
+/**
+ * Server action to update an existing task within a project.
+ */
 export async function updateTask(projectId: string, taskId: string, updateData: Record<string, unknown>) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -43,6 +46,9 @@ export async function updateTask(projectId: string, taskId: string, updateData: 
   }
 }
 
+/**
+ * Server action to create a new task for a specific project.
+ */
 export async function createTask(data: CreateTaskData) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -76,6 +82,9 @@ export async function createTask(data: CreateTaskData) {
   }
 }
 
+/**
+ * Server action to permanently delete a task from a project.
+ */
 export async function deleteTask(projectId: string, taskId: string) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;

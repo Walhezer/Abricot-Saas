@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: 'Tableau de bord',
 };
 
+/**
+ * Server component that renders the main dashboard.
+ * Fetches user tasks and handles the display view (List or Kanban).
+ */
 export default async function DashboardPage({
   searchParams,
 }: {

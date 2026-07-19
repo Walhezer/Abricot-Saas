@@ -14,6 +14,10 @@ interface ProjectActionButtonsProps {
     members: Member[];
 }
 
+/**
+ * Renders the primary action buttons for a specific project.
+ * Handles the modals for manual task creation and AI-powered task generation.
+ */
 export default function ProjectActionButtons({ projectId, btnClassName, iaBtnClassName, members }: ProjectActionButtonsProps) {
     const [activeModal, setActiveModal] = useState<'create_task' | 'ai_task' | null>(null);
 

@@ -13,6 +13,10 @@ interface ModalProps {
   bodyClassName?: string;
 }
 
+/**
+ * Custom hook to safely detect client-side hydration.
+ * Prevents SSR mismatch errors when rendering portals.
+ */
 function useIsHydrated() {
   return useSyncExternalStore(
     () => () => {},
@@ -21,6 +25,10 @@ function useIsHydrated() {
   );
 }
 
+/**
+ * Renders a reusable modal dialog using React Portals.
+ * Manages keyboard accessibility (Escape key to close) and SSR hydration.
+ */
 export default function Modal({ isOpen, onClose, title, children, variant = 'default', bodyClassName = '' }: ModalProps) {
   const isHydrated = useIsHydrated();
   const isCompact = variant === 'compact';

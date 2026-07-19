@@ -14,6 +14,10 @@ interface AuthResponse {
   name?: string; 
 }
 
+/**
+ * Renders the layout wrapper for the dashboard and private routes.
+ * Fetches the authenticated user's data to populate the Header dynamically.
+ */
 export default async function DashboardLayout({
   children,
 }: {

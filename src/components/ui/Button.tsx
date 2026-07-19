@@ -7,7 +7,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Button component using CSS Modules for styling.
+ * A reusable, accessible button component.
+ * Supports 'primary' and 'outline' visual variants via CSS Modules.
  */
 const Button: React.FC<ButtonProps> = ({ 
   variant = 'primary', 

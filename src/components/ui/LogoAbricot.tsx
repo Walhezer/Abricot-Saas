@@ -6,6 +6,10 @@ interface LogoAbricotProps {
   height?: number;
 }
 
+/**
+ * Renders the primary application logo as an inline SVG.
+ * Accepts customizable dimensions and CSS classes for flexible placement across the UI.
+ */
 export default function LogoAbricot({ className, width = 147, height = 18 }: LogoAbricotProps) {
   return (
     <svg

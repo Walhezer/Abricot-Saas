@@ -4,6 +4,10 @@ interface TagProps {
     status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'ALL';
 }
 
+/**
+ * Renders a visual status badge.
+ * Dynamically maps the provided status string to its corresponding French label and CSS class.
+ */
 export default function Tag({ status }: TagProps) {
     const getTagConfig = () => {
         switch (status) {

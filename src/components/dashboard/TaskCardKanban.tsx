@@ -7,6 +7,9 @@ interface TaskCardKanbanProps {
   task: AssignedTask;
 }
 
+/**
+ * Renders a task card optimized for the Kanban board column layout.
+ */
 export default function TaskCardKanban({ task }: TaskCardKanbanProps) {
   // On garde tes fonctions utilitaires
   const getStatusBadgeClass = (status: AssignedTask['status']) => {
@@ -34,7 +37,6 @@ export default function TaskCardKanban({ task }: TaskCardKanbanProps) {
 
   return (
     <article className={styles.card}>
-      {/* HEADER : Titre + Badge */}
       <div className={styles.header}>
         <h3 className={styles.title}>{task.title}</h3>
         <span className={`${styles.badge} ${getStatusBadgeClass(task.status)}`}>
@@ -42,10 +44,8 @@ export default function TaskCardKanban({ task }: TaskCardKanbanProps) {
         </span>
       </div>
 
-      {/* CORPS : Description */}
       <p className={styles.description}>{task.description}</p>
 
-      {/* META : Icônes (Projet, Date, Commentaires) */}
       <div className={styles.meta}>
         <span className={styles.metaItem}>
           <Folder size={15} fill="currentColor" className={styles.metaIcon} />
@@ -63,7 +63,6 @@ export default function TaskCardKanban({ task }: TaskCardKanbanProps) {
         </span>
       </div>
 
-      {/* FOOTER : Bouton d'action */}
       <div className={styles.footer}>
         <Link href={`/projects/${task.projectId}#task-${task.id}`} className={styles.actionButton}>
           Voir

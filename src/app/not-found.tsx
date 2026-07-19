@@ -3,6 +3,10 @@ import Header from '@/components/layout/Header/Header';
 import Footer from '@/components/layout/Footer/Footer';
 import styles from './not-found.module.css';
 
+/**
+ * Renders the custom 404 Not Found page.
+ * Displays a user-friendly error message and provides a fallback link to the dashboard.
+ */
 export default function NotFound() {
   return (
     <div className={styles.pageWrapper}>

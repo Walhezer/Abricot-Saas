@@ -17,6 +17,10 @@ export interface CreateProjectData {
   contributors?: string[];
 }
 
+/**
+ * Server action to update an existing project's details.
+ * Maps the frontend 'title' payload to the backend 'name' field expectation.
+ */
 export async function updateProject(projectId: string, updateData: UpdateProjectData) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -52,6 +56,9 @@ export async function updateProject(projectId: string, updateData: UpdateProject
   }
 }
 
+/**
+ * Server action to create a new project.
+ */
 export async function createProject(data: CreateProjectData) {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -79,6 +86,9 @@ export async function createProject(data: CreateProjectData) {
   return await response.json();
 }
 
+/**
+ * Server action to safely delete a project by its ID.
+ */
 export async function deleteProject(projectId: string) {
   const token = await getAuthToken();
 

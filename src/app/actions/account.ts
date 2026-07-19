@@ -6,7 +6,10 @@ import { UpdateAccountDTO } from '@/services/account.service';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
-// Server action used to update the authenticated user's profile.
+/**
+ * Server action to update the authenticated user's profile information.
+ * Requires a valid HTTP-Only authorization token.
+ */
 export async function updateAccountInfo(data: UpdateAccountDTO): Promise<User> {
   const token = await getAuthToken();
 
@@ -31,7 +34,10 @@ export async function updateAccountInfo(data: UpdateAccountDTO): Promise<User> {
   return response.json();
 }
 
-// Server action used to change the authenticated user's password.
+/**
+ * Server action to change the authenticated user's password.
+ * Validates the current password before applying the new one.
+ */
 export async function updateUserPassword(data: { currentPassword: string, newPassword: string }) {
   const token = await getAuthToken();
   

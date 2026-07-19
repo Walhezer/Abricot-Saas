@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Mon compte',
 };
 
+/**
+ * Server component that renders the account management page.
+ * Fetches the user profile and formats the data for the client-side form.
+ */
 export default async function AccountPage() {
   const initialData = {
     firstName: '',

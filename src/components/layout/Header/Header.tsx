@@ -20,6 +20,10 @@ interface HeaderProps {
   userName?: string;
 }
 
+/**
+ * Renders the main application header.
+ * Provides primary navigation links and displays a dynamic user avatar.
+ */
 export default function Header({ userName = 'Alice Martin' }: HeaderProps) {
   const pathname = usePathname();
   const isAccountPage = pathname === '/account';

@@ -11,6 +11,10 @@ export const metadata: Metadata = {
 type Project = Awaited<ReturnType<typeof getProjects>> extends (infer U)[] ? U : never;
 type AssignedTask = Awaited<ReturnType<typeof getTasksByProjectId>> extends (infer U)[] ? U : never;
 
+/**
+ * Server component that renders the user's project grid.
+ * Fetches all accessible projects and calculates the number of completed tasks for each.
+ */
 export default async function ProjectsPage() {
   let projects: Project[] = [];
   let completedTasksByProjectId: Record<string, number> = {};

@@ -11,6 +11,10 @@ interface AITaskGeneratorProps {
   onClose: () => void;
 }
 
+/**
+ * Renders the AI Task Generator modal.
+ * Handles user prompts, simulates AI generation, and manages keyboard accessibility.
+ */
 export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
   const [step, setStep] = useState<'input' | 'results'>('input');
   const [prompt, setPrompt] = useState('');
@@ -18,7 +22,7 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const titleId = 'ai-task-generator-title';
 
-  // Gérer la fermeture avec la touche Echap
+  // Manage closing with the Esc key
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -29,7 +33,7 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  // Mettre le focus sur la modale à l'ouverture
+  // Set the focus to the aperture
   useEffect(() => {
     dialogRef.current?.focus();
   }, []);
@@ -61,7 +65,6 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
       tabIndex={-1}
     >
 
-      {/* --- HEADER --- */}
       <div className={styles.header}>
         <div className={styles.titleGroup}>
           <div className={styles.sparkleIcon}>
@@ -70,7 +73,9 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
           <h2 id={titleId} className={styles.title}>{step === 'input' ? 'Créer une tâche' : 'Vos tâches...'}</h2>
         </div>
       </div>
+      
       {step === 'input' && <div className={styles.spacer}></div>}
+      
       {step === 'results' && (
         <div className={styles.resultsContainer}>
           {[1, 2, 3].map((index) => (
@@ -102,6 +107,7 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
           </div>
         </div>
       )}
+      
       <div className={styles.inputWrapper}>
         <input
           type="text"
@@ -120,7 +126,6 @@ export default function AITaskGenerator({ onClose }: AITaskGeneratorProps) {
         />
       </div>
 
-      {/* Région live pour les annonces aux lecteurs d'écran, nécessite une classe "sr-only" pour être masquée visuellement */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
         {isLoading && "Génération des tâches en cours..."}
         {step === 'results' && !isLoading && "Les tâches ont été générées."}

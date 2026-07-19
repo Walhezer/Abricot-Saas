@@ -1,8 +1,12 @@
 import { cookies } from 'next/headers';
 import { Project, AssignedTask } from '@/types/dashboard';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api'; 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'; 
 
+/**
+ * Fetches projects configured for the dashboard overview.
+ * Bypasses cache to guarantee real-time data accuracy.
+ */
 export async function getDashboardProjects(): Promise<Project[]> {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;
@@ -17,6 +21,9 @@ export async function getDashboardProjects(): Promise<Project[]> {
   return json.data.projects;
 }
 
+/**
+ * Retrieves all tasks specifically assigned to the currently authenticated user.
+ */
 export async function getAssignedTasks(): Promise<AssignedTask[]> {
   const cookieStore = await cookies();
   const token = cookieStore.get('abricot_token')?.value;

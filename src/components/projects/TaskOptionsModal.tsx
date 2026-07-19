@@ -16,6 +16,10 @@ interface TaskOptionsModalProps {
     projectId: string; 
 }
 
+/**
+ * Renders a compact modal presenting quick actions for a specific task.
+ * Allows the user to either open the edit form or permanently delete the task.
+ */
 export default function TaskOptionsModal({
     isOpen,
     onClose,
