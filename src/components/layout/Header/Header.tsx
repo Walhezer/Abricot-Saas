@@ -32,8 +32,8 @@ export default function Header({ userName = 'Alice Martin' }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <div className={styles.headerLeft}>
-            <LogoAbricot className={styles.logo} />
+        <div className={styles.headerLeft} role="img" aria-label="Logo L'abricot">
+          <LogoAbricot className={styles.logo} aria-hidden="true" />
         </div>
         <nav className={styles.navigation}>
           <Link

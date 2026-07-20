@@ -133,7 +133,7 @@ export default function RegisterPage() {
       <div className={styles.rightPanel}>
         <Image
           src="/images/cover-register.jpg"
-          alt="Bureau avec un ordinateur portable et des fournitures de bureau"
+          alt="" 
           fill
           style={{ objectFit: 'cover' }}
           priority

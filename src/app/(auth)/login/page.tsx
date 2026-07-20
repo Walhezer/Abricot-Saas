@@ -109,7 +109,7 @@ export default function LoginPage() {
       <div className={styles.rightPanel}>
         <Image
           src="/images/cover-login.jpg"
-          alt="Bureau avec clavier et mètre"
+          alt="" 
           fill
           style={{ objectFit: 'cover' }}
           priority
